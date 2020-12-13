@@ -45,14 +45,19 @@ class Parser():
     def parse(self):
         @self.pg.production('expression : NUM')
         def expression_num(p):
+            print(p[0])
             return Number(int(p[0].getstr()))
 
         @self.pg.production('expression : OPEN_PAR expression CLOSE_PAR')
         def expression_parentheses(p):
+            print(p[1])
+
             return p[1]
 
         @self.pg.production('expression : OPEN_BRACKET expression CLOSE_BRACKET')
         def expression_bracket(p):
+            print(p[1])
+
             return p[1]
 
         @self.pg.production('expression : expression add expression')
@@ -63,11 +68,13 @@ class Parser():
             left = p[0]
             right =  p[2]
             operator = p[1]
+            print(p[1])
+
             tokentype = operator.gettokentype()
             if tokentype == "add":
                 return Add(left,right)
             elif tokentype == "sub":
-                return  Sub(left,right)
+                return Sub(left,right)
             elif tokentype == "mul":
                 return Mul(left,right)
             elif tokentype  == "div":
@@ -77,7 +84,7 @@ class Parser():
 
         @self.pg.error
         def error_handler(token):
-            raise ValueError(token)
+            raise ValueError("Ran into a %s where it wasn't expected" % token.gettokentype())
 
     def getParser(self):
         return self.pg.build()

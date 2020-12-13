@@ -1,9 +1,7 @@
 from lexer import Lexer
 from parser import Parser
 
-input = """
-4+4*9/10
-"""
+input = '3+(3/6)*9'
 
 lexer = Lexer().get_lexer()
 tokens = lexer.lex(input)
@@ -11,7 +9,5 @@ pg = Parser()
 pg.parse()
 parser = pg.getParser()
 
-for token  in tokens:
-    print(token)
-
-parser.parse(tokens).eval()
+result = parser.parse(tokens)
+print(result.eval())

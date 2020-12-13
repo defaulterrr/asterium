@@ -14,7 +14,7 @@ class Lexer():
         self.lexer.add('OPEN_BRACKET',r'\{')
         self.lexer.add('CLOSE_BRACKET',r'\}')
         self.lexer.add('NUM', r'\d+')
-        self.lexer.ignore(r'\s+')
+        self.lexer.ignore('\s+')
 
     def get_lexer(self):
         self._add_tokens()
