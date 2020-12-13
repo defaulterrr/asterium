@@ -1,11 +1,33 @@
 from rply.token import BaseBox
+import string, random
+
+def get_random_string():
+        letters = string.ascii_lowercase
+        result_str = ''.join(random.choice(letters) for i in range(10))
+        return  result_str
 
 class Number(BaseBox):
     def __init__(self,value):
         self.value = value
 
+
+
+    def reserve(self):
+        """
+        Reserve a word
+        """
+        # <name>: word <word>
+        # get unique name
+        self.address = get_random_string()
+        # set its value
+        # push to name table
+        # set self.address = unique name
+
     def eval(self):
-        return self.value
+        #return self.value
+        self.reserve()
+        print(self.address + " " + "word" + " " + str(self.value) + "\n")
+        return self.address
 
 class BinaryOperation(BaseBox):
     def __init__(self, left, right):
@@ -14,19 +36,29 @@ class BinaryOperation(BaseBox):
 
 class Add(BinaryOperation):
     def eval(self):
-        return self.left.eval() + self.right.eval()
+        # address 1
+        # address 2
+        # ld A, address1;
+        # add A, address2;  // -> a
+        # st A, address3;
+        self.resultAddress = get_random_string()
+        self.cmds = []
+        self.cmds.append("ld A," + str(self.left.eval()) + ";\n")
+        self.cmds.append("add A," + str(self.right.eval()) + ";\n")
+        self.cmds.append("st A," + str(self.resultAddress) + ";\n")
+        return self.resultAddress
 
 class Sub(BinaryOperation):
     def eval(self):
-        return self.left.eval() - self.right.eval()
+        return self.left.eval() + " sub " + self.right.eval()
 
 class Mul(BinaryOperation):
     def eval(self):
-        return self.left.eval() * self.right.eval()
+        return self.left.eval() + " mul "+ self.right.eval()
 
 class Div(BinaryOperation):
     def eval(self):
-        return self.left.eval() / self.right.eval()
+        return self.left.eval() + " div " + self.right.eval()
 
 
 from rply import ParserGenerator
