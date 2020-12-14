@@ -1,7 +1,10 @@
 from lexer import Lexer
-from parser import Parser
+from myparser import Parser
+from addresstable import AddressTable
 
-input = '3+(3/6)*9'
+input = '666*15/3-13000'
+
+table = AddressTable()
 
 lexer = Lexer().get_lexer()
 tokens = lexer.lex(input)
@@ -10,4 +13,6 @@ pg.parse()
 parser = pg.getParser()
 
 result = parser.parse(tokens)
-print(result.eval())
+result.eval(table)
+print(result.generate(table))
+print(table.generate())
