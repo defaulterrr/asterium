@@ -12,7 +12,9 @@ pg = Parser()
 pg.parse()
 parser = pg.getParser()
 
-result = parser.parse(tokens)
-result.eval(table)
-print(result.generate(table))
+tree = parser.parse(tokens)
+tree.eval(table)
+print("main: start 0")
+
+print(tree.generate(table))
 print(table.generate())
