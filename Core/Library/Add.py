@@ -1,4 +1,4 @@
-from Core.Library import BinaryOperation
+from Library import BinaryOperation
 
 class Add(BinaryOperation):
     def __init__(self, left, right):

@@ -1,6 +1,6 @@
-from Core.Library import Number,Add,Sub,Mul,Div
+from Library import Number,Add,Sub,Mul,Div
 import string, random
-from Core.Library import AddressTable
+from Library import AddressTable
 
 from rply import ParserGenerator
 
