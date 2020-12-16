@@ -21,6 +21,6 @@ class Div(BinaryOperation):
         self.cmds.append("ld A," + str(self.left.eval(addresstable)) + ";\n")
         self.cmds.append("div A," + str(self.right.eval(addresstable)) + ";\n")
         self.cmds.append("st A," + str(self.address) + ";\n")
-        print(self.cmds)
+        #print(self.cmds)
         cmds = "".join(self.cmds)
         return cmds
