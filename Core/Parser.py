@@ -1,6 +1,10 @@
-from Library import Number,Add,Sub,Mul,Div
+from Library.Number import Number
+from Library.Add import Add
+from Library.Sub import Sub
+from Library.Mul import Mul
+from Library.Div import Div
 import string, random
-from Library import AddressTable
+from Library.AddressTable import AddressTable
 
 from rply import ParserGenerator
 
