@@ -1,8 +1,8 @@
-from lexer import Lexer
-from myparser import Parser
-from addresstable import AddressTable
+from Core.Lexer import Lexer
+from Core.Parser import Parser
+from Core.Library import AddressTable
 
-input = '666*15/3-13000'
+input = '1/0*999-521456*83/7'
 
 table = AddressTable()
 
