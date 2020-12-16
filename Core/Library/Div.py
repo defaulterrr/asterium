@@ -1,5 +1,5 @@
-from Library.BinaryOperation import BinaryOperation
-
+from .BinaryOperation import BinaryOperation
+from .AddressTable import AddressTable
 class Div(BinaryOperation):
     def __init__(self, left, right):
         super().__init__(left, right)
@@ -12,7 +12,7 @@ class Div(BinaryOperation):
             self.address = addresstable.push(0)
             return self.address
 
-    def generate(self, addresstable):
+    def generate(self, addresstable: AddressTable):
         self.cmds = []
         self.left.eval(addresstable)
         self.right.eval(addresstable)

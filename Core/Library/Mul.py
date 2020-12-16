@@ -1,4 +1,4 @@
-from Library.BinaryOperation import BinaryOperation
+from .BinaryOperation import BinaryOperation
 
 class Mul(BinaryOperation):
     def __init__(self, left, right):
