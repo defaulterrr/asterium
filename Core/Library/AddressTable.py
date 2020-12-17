@@ -13,17 +13,25 @@ class AddressTable:
         result_str = "gen_" + result_str
         return  result_str
 
-    def push(self, value):
-        address = self.__get_random_string()
-        while address in self.table:
-            address = self.__get_random_string()
+    def push(self, value=0, name="") -> str:
+        address = name
+        if address == "":
+            address = self.__get_random_string()      
+            while address in self.table:
+                address = self.__get_random_string()
         self.table[address] = value
         self.addresses.append(address)
         return address
 
+    def isPresent(self, address) -> bool:
+        if address in self.addresses:
+            return True
+        else:
+            return False
+
     def print(self):
         for address in self.addresses:
-            print(address + str(self.table[address]))
+            print(address + ": " + str(self.table[address]))
 
     def generate(self):
         for address in self.addresses:
