@@ -51,6 +51,14 @@ class Parser():
         #         print(p)
         #     return p[1]
 
+        @self.pg.production('expression : FUNC_DECL ID OPEN_PAR expression CLOSE_PAR OPEN_BRACKET expression CLOSE_BRACKET')
+        def function(p):
+            if self.debug:
+                print("PARSER_DEBUG ----->>>> Got a function")
+                print(p[0])
+
+            return Function(p[1].getstr(),p[3])
+
         @self.pg.production('expression : NUM')
         def expression_num(p):
             # print(p[0])
@@ -67,18 +75,11 @@ class Parser():
                 print(p)
             return p[1]
 
-        # @self.pg.production('expression : OPEN_BRACKET expression CLOSE_BRACKET')
-        # def expression_bracket(p):
-        #     # print(p[1])
+        @self.pg.production('expression : OPEN_BRACKET expression CLOSE_BRACKET')
+        def expression_bracket(p):
+            # print(p[1])
 
-        #     return p[1]
-
-        @self.pg.production('expression : FUNC_DECL ID OPEN_BRACKET expression CLOSE_BRACKET')
-        def function(p):
-            if self.debug:
-                print("PARSER_DEBUG ----->>>> Got function expression")
-                print(p)
-            return Function(p[1].getstr(),p[5])
+            return p[1]
 
         @self.pg.production('expression : expression add expression')
         @self.pg.production('expression : expression sub expression')
