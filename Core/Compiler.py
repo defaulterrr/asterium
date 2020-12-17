@@ -11,18 +11,19 @@ variable2 = 127 * 8;
 """
 
 raw_input2 = """
+var b;
 func test () {
-    b = 1+1;
+    b = 2 + 2;
 }
 """
 
-input = raw_input.split(";")
+# input = raw_input.split(";")
 sorted_expressions = []
-for index in range(len(input)):
-    if input[index] != "\n":
-        sorted_expressions.append(input[index]+";")
-print(input)
-# sorted_expressions.append(raw_input2)
+# for index in range(len(input)):
+#     if input[index] != "\n":
+#         sorted_expressions.append(input[index]+";")
+# print(input)
+sorted_expressions.append(raw_input2)
 
 atable = AddressTable()
 ftable = FunctionTable()

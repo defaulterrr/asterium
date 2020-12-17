@@ -22,15 +22,15 @@ class Assignment(BinaryOperation):
         # print("Source address: " + self.sourceAddress)
         # print("______")
         if addresstable.isPresent(self.assignmentAddress):
-            self.sourceAddress = self.right.eval(addresstable)
+            self.sourceAddress = self.right.eval(addresstable, ftable)
         else:
             raise ValueError("Such variable is not present up to this point")
 
     def generate(self, addresstable: AddressTable, ftable):
         self.cmds = []
         # self.cmds.append(self.left.generate(addresstable))
-        self.cmds.append(self.right.generate(addresstable))
-        self.cmds.append("ld A," + str(self.right.eval(addresstable)) + ";\n")
+        self.cmds.append(self.right.generate(addresstable, ftable))
+        self.cmds.append("ld A," + str(self.right.eval(addresstable, ftable)) + ";\n")
         self.cmds.append("st A," + str(self.left.eval().getstr()))
         print(self.cmds)
         cmds = "".join(self.cmds)

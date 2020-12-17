@@ -23,6 +23,7 @@ class Parser():
             precedence=[
                 ('left', ['FUNC_DECL']),
                 ('left', ['ASSIGNMENT', 'add', 'sub']),
+                ('left', ['expression_list','expression']),
                 ('right', ['mul', 'div'])
             ]
         )
@@ -31,6 +32,19 @@ class Parser():
     def parse(self):
 
         
+        @self.pg.production('expression : expression SEMICOLON')
+        def expr_list(p):
+            if self.debug:
+                print("PARSER_DEBUG ----->>>> Got short expression list")
+                print(p)
+            return p[1]
+
+        @self.pg.production('expression_list : expression_list expression SEMICOLON')
+        def expr_list_long(p):
+            if self.debug:
+                print("PARSER_DEBUG ----->>>> Got long expression list")
+                print(p)
+            return p[1]
 
         @self.pg.production('expression : FUNC_DECL ID OPEN_PAR CLOSE_PAR OPEN_BRACKET expression CLOSE_BRACKET')
         def function(p):
@@ -113,27 +127,13 @@ class Parser():
             name = p[1].getstr()
             return Declaration(name)
 
-        @self.pg.production('expression_list : expression SEMICOLON')
-        def expr_list(p):
-            if self.debug:
-                print("PARSER_DEBUG ----->>>> Got short expression list")
-                print(p)
-            pass
-
-        @self.pg.production('expression_list : expression_list expression SEMICOLON')
-        def expr_list_long(p):
-            if self.debug:
-                print("PARSER_DEBUG ----->>>> Got long expression list")
-                print(p)
-            pass
 
         @self.pg.production('compound_expression : OPEN_BRACKET expression_list CLOSE_BRACKET')
         def comp_expr(p):
             if self.debug:
                 print("PARSER_DEBUG ----->>>> Got compound expression")
                 print(p)
-            pass
-
+            return p[1]
 
         @self.pg.error
         def error_handler(token):

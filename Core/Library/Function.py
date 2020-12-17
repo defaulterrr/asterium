@@ -15,7 +15,7 @@ class Function():
     # generate function body to be later added to the end of the file for calling
     def generate(self, atable:AddressTable, ftable: FunctionTable):
 
-        commands = self.node.generate(atable)
+        commands = self.node.generate(atable,ftable)
         print(commands)
         func = self.name + ":\n"
         if commands != None:
