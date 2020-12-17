@@ -3,6 +3,9 @@ from Library.Add import Add
 from Library.Sub import Sub
 from Library.Mul import Mul
 from Library.Div import Div
+from Library.Assignment import Assignment
+from Library.ID import ID
+from Library.Declaration import Declaration
 import string, random
 from Library.AddressTable import AddressTable
 
@@ -10,25 +13,50 @@ from rply import ParserGenerator
 
 
 class Parser():
-    def __init__(self):
+    def __init__(self, debug=False):
         self.pg = ParserGenerator(
-        ['add','sub','mul','div','OPEN_PAR','CLOSE_PAR','OPEN_BRACKET','CLOSE_BRACKET','NUM'],
+        ['add','sub','mul','div','OPEN_PAR','CLOSE_PAR','OPEN_BRACKET','CLOSE_BRACKET','NUM','ID','ASSIGNMENT','SEMICOLON','VAR_DECL'],
         precedence=[
-            ('left',['add','sub']),
+            ('left',['ASSIGNMENT','add','sub']),
             ('right',['mul','div'])
         ]
         )
+        self.debug = debug
 
     def parse(self):
+
+        # @self.pg.production('expression_list : expression SEMICOLON')
+        # def expression_list(p):
+        #     if self.debug:
+        #         print("Got expression list")
+        #         print(p)
+        #     return p[1]
+
+        # @self.pg.production('expression_list : expression_list SEMICOLON')
+        # def expression_list(p):
+        #     if self.debug:
+        #         print("Got expression list of list")
+        #         print(p)
+        #     return p[1]
+
+        # @self.pg.production('expression : expression SEMICOLON')
+        # def expression(p):
+        #     if self.debug:
+        #         print("Got expression expression")
+        #         print(p)
+        #     return p[1]
+
         @self.pg.production('expression : NUM')
         def expression_num(p):
             #print(p[0])
+            if self.debug:
+                print("Got numeric expression")
+                print(p)
             return Number(int(p[0].getstr()))
 
         @self.pg.production('expression : OPEN_PAR expression CLOSE_PAR')
         def expression_parentheses(p):
             #print(p[1])
-
             return p[1]
 
         @self.pg.production('expression : OPEN_BRACKET expression CLOSE_BRACKET')
@@ -45,7 +73,9 @@ class Parser():
             left = p[0]
             right =  p[2]
             operator = p[1]
-           #print(p[1])
+            if self.debug:
+                print("Got elementary arithmetic expression")
+                print(p)
 
             tokentype = operator.gettokentype()
             if tokentype == "add":
@@ -59,9 +89,27 @@ class Parser():
             else:
                 raise AssertionError("Undefined token")
 
+        @self.pg.production('expression : ID ASSIGNMENT expression SEMICOLON')   
+        def assignment(p):
+            left = ID(p[0])
+            right = p[2]
+
+            if self.debug:
+                print("Got assignment expression")
+                print(p)
+
+            return Assignment(left,right)
+
+        @self.pg.production('expression : VAR_DECL ID SEMICOLON')
+        def declaration(p):
+            name = p[1].getstr()
+            return Declaration(name)
+
+
         @self.pg.error
         def error_handler(token):
             raise ValueError("Ran into a %s where it wasn't expected" % token.gettokentype())
+
 
     def getParser(self):
         return self.pg.build()
