@@ -19,7 +19,7 @@ class Add(BinaryOperation):
             self.address = addresstable.push(0)
             return self.address
 
-    def generate(self, addresstable):
+    def generate(self, addresstable, ftable,  *argv):
         self.cmds = []
         self.left.eval(addresstable)
         self.right.eval(addresstable)

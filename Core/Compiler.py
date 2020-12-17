@@ -11,8 +11,9 @@ variable2 = 127 * 8;
 """
 
 raw_input2 = """
-func test (var a;) {
+func test () {
     var b;
+    b = 1+1;
 }
 """
 
@@ -53,4 +54,4 @@ for output in outputs:
     print(output)
 
 print("_____________")
-print(table.generate())
+print(atable.generate())

@@ -8,7 +8,7 @@ class FunctionTable():
             self.addresses.append(name)
         else:
             raise ValueError("Function with such name was already declared: " + name)
-        self.function[name] = func
+        self.functions[name] = func
 
     def generate(self):
         funcs = []
