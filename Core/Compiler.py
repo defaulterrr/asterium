@@ -16,14 +16,14 @@ func test () {
 }
 """
 
-# input = raw_input.split(";")
+input = raw_input.split(";")
 sorted_expressions = []
-# for index in range(len(input)):
-#     if input[index] != "\n":
-#         sorted_expressions.append(input[index]+";")
-# print(input)
-sorted_expressions.append(raw_input2)
-    
+for index in range(len(input)):
+    if input[index] != "\n":
+        sorted_expressions.append(input[index]+";")
+print(input)
+# sorted_expressions.append(raw_input2)
+
 atable = AddressTable()
 ftable = FunctionTable()
 
@@ -41,9 +41,9 @@ for index in range(len(sorted_expressions)):
     parser = pg.getParser()
     # table.print()
     tree = parser.parse(tokens)
-    tree.eval(atable,ftable)
+    tree.eval(atable, ftable)
     # outputs.append(tree.generate(table))
-    output = tree.generate(atable,ftable)
+    output = tree.generate(atable, ftable)
     if output != None:
         outputs.append(output)
     print("Worked out expression: " + expression)

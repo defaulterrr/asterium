@@ -9,7 +9,7 @@ class Assignment(BinaryOperation):
         self.assignmentAddress = ''
         self.sourceAddress = ''
 
-    def eval(self, addresstable: AddressTable):
+    def eval(self, addresstable: AddressTable, ftable):
         # if self.address !="":
         #     return self.address
         # else:
@@ -26,7 +26,7 @@ class Assignment(BinaryOperation):
         else:
             raise ValueError("Such variable is not present up to this point")
 
-    def generate(self, addresstable: AddressTable):
+    def generate(self, addresstable: AddressTable, ftable):
         self.cmds = []
         # self.cmds.append(self.left.generate(addresstable))
         self.cmds.append(self.right.generate(addresstable))

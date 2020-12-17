@@ -5,14 +5,14 @@ class Mul(BinaryOperation):
         super().__init__(left, right)
         self.address = ''
 
-    def eval(self, addresstable):
+    def eval(self, addresstable, ftable):
         if self.address != "":
             return self.address
         else:
             self.address = addresstable.push(0)
             return self.address
 
-    def generate(self, addresstable):
+    def generate(self, addresstable, ftable):
         self.cmds = []
         self.left.eval(addresstable)
         self.right.eval(addresstable)

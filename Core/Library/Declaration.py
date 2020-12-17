@@ -7,5 +7,5 @@ class Declaration:
     def eval(self, table: AddressTable, *argv):
         table.push(name=self.name)
 
-    def generate(self, table):
+    def generate(self, table, ftable):
         pass

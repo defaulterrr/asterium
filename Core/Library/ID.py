@@ -5,5 +5,5 @@ class ID:
     def eval(self):
         return self.name
 
-    def generate(self,addresstable):
+    def generate(self, addresstable, ftable):
         return self.name

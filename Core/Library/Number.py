@@ -16,7 +16,7 @@ class Number(BaseBox):
         # push to name table
         # set self.address = unique name
 
-    def eval(self, addresstable):
+    def eval(self, addresstable, ftable):
         #return self.value
         # self.address = addresstable.push(self.value)
         # print(self.address + " " + "word" + " " + str(self.value) + "\n")
@@ -26,5 +26,5 @@ class Number(BaseBox):
             self.address = addresstable.push(self.value)
             return self.address
 
-    def generate(self, addresstable):
+    def generate(self, addresstable, ftable):
         return "\n"
