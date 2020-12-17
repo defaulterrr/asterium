@@ -12,7 +12,6 @@ variable2 = 127 * 8;
 
 raw_input2 = """
 func test () {
-    var b;
     b = 1+1;
 }
 """
