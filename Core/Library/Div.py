@@ -14,12 +14,12 @@ class Div(BinaryOperation):
 
     def generate(self, addresstable: AddressTable, ftable):
         self.cmds = []
-        self.left.eval(addresstable)
-        self.right.eval(addresstable)
-        self.cmds.append(self.left.generate(addresstable))
-        self.cmds.append(self.right.generate(addresstable))
-        self.cmds.append("ld A," + str(self.left.eval(addresstable)) + ";\n")
-        self.cmds.append("div A," + str(self.right.eval(addresstable)) + ";\n")
+        self.left.eval(addresstable, ftable)
+        self.right.eval(addresstable, ftable)
+        self.cmds.append(self.left.generate(addresstable, ftable))
+        self.cmds.append(self.right.generate(addresstable, ftable))
+        self.cmds.append("ld A," + str(self.left.eval(addresstable, ftable)) + ";\n")
+        self.cmds.append("div A," + str(self.right.eval(addresstable, ftable)) + ";\n")
         self.cmds.append("st A," + str(self.address) + ";\n")
         #print(self.cmds)
         cmds = "".join(self.cmds)

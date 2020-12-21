@@ -6,7 +6,7 @@ class Add(BinaryOperation):
         self.address = ''
 
 
-    def eval(self, addresstable):
+    def eval(self, addresstable, ftable):
         # address 1
         # address 2
         # ld A, address1;
@@ -21,12 +21,12 @@ class Add(BinaryOperation):
 
     def generate(self, addresstable, ftable,  *argv):
         self.cmds = []
-        self.left.eval(addresstable)
-        self.right.eval(addresstable)
-        self.cmds.append(self.left.generate(addresstable))
-        self.cmds.append(self.right.generate(addresstable))
-        self.cmds.append("ld A," + str(self.left.eval(addresstable)) + ";\n")
-        self.cmds.append("add A," + str(self.right.eval(addresstable)) + ";\n")
+        self.left.eval(addresstable, ftable)
+        self.right.eval(addresstable, ftable)
+        self.cmds.append(self.left.generate(addresstable, ftable))
+        self.cmds.append(self.right.generate(addresstable, ftable))
+        self.cmds.append("ld A," + str(self.left.eval(addresstable, ftable)) + ";\n")
+        self.cmds.append("add A," + str(self.right.eval(addresstable, ftable)) + ";\n")
         self.cmds.append("st A," + str(self.address) + ";\n")
         cmds = "".join(self.cmds)
         return cmds

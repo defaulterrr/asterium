@@ -11,10 +11,10 @@ variable2 = 127 * 8;
 """
 
 raw_input2 = """
+var a;
 var b;
-func test () {
-    b = 2 + 2;
-}
+a = 3+3;
+b = 6+8/4;
 """
 
 # input = raw_input.split(";")
@@ -55,3 +55,4 @@ for output in outputs:
 
 print("_____________")
 print(atable.generate())
+print(ftable.generate(atable,ftable))

@@ -10,6 +10,7 @@ from Library.Function import Function
 import string
 import random
 from Library.AddressTable import AddressTable
+from Library.Node import Node
 
 from rply import ParserGenerator
 
@@ -21,8 +22,9 @@ class Parser():
                 'CLOSE_BRACKET', 'NUM', 'ID', 'ASSIGNMENT', 'SEMICOLON', 'VAR_DECL',
                     'FUNC_DECL'],
             precedence=[
+                ('left', ['ASSIGNMENT']),
                 ('left', ['FUNC_DECL']),
-                ('left', ['ASSIGNMENT', 'add', 'sub']),
+                ('left', ['add', 'sub']),
                 ('left', ['expression_list','expression']),
                 ('right', ['mul', 'div'])
             ]
@@ -35,16 +37,49 @@ class Parser():
         @self.pg.production('expression : expression SEMICOLON')
         def expr_list(p):
             if self.debug:
-                print("PARSER_DEBUG ----->>>> Got short expression list")
+                print("PARSER_DEBUG ----->>>> Got an expression")
                 print(p)
-            return p[1]
+            return p[0]
 
-        @self.pg.production('expression_list : expression_list expression SEMICOLON')
+        @self.pg.production('expression : function')
+        def func_expr(p):
+            if self.debug:
+                print("PARSER_DEBUG ----->>>> Got function expression")
+                print(p)
+            return p[0]
+
+        @self.pg.production('expression : function expression')
+        def func_node(p):
+            if self.debug:
+                print("PARSER_DEBUG ----->>>> Got function node")
+                print(p)
+            return Node(p[0],p[1])
+
+        @self.pg.production('expression : expression_list')
+        def expr_list(p):
+            if self.debug:
+                print("PARSER_DEBUG ----->>>> Got expression from list")
+                print(p)
+            return p[0]
+
+        @self.pg.production('expression_list : expression_list expression')
         def expr_list_long(p):
             if self.debug:
-                print("PARSER_DEBUG ----->>>> Got long expression list")
+                print("PARSER_DEBUG ----->>>> Got prolonged expression list")
                 print(p)
-            return p[1]
+            return Node(p[1],p[0])
+
+        @self.pg.production('expression_list : expression expression')
+        def expr_list_basic(p):
+            if self.debug:
+                print("PARSER_DEBUG ----->>>> Got init expression list")
+            return Node(p[0],p[1])
+
+        # @self.pg.production('expression: expression')
+        # def expression(p):
+        #     if self.debug():
+        #         print("Got an expression: " + str(p))
+            
 
         @self.pg.production('expression : FUNC_DECL ID OPEN_PAR CLOSE_PAR OPEN_BRACKET expression CLOSE_BRACKET')
         def function(p):
@@ -54,7 +89,7 @@ class Parser():
             print(p[3])
             return Function(p[1].getstr(),p[5])
 
-        @self.pg.production('expression : FUNC_DECL ID OPEN_PAR expression CLOSE_PAR compound_expression')
+        @self.pg.production('function : FUNC_DECL ID OPEN_PAR expression CLOSE_PAR compound_expression')
         def function(p):
             if self.debug:
                 print("PARSER_DEBUG ----->>>> Got a function")
@@ -108,7 +143,7 @@ class Parser():
             else:
                 raise AssertionError("Undefined token")
 
-        @self.pg.production('expression : ID ASSIGNMENT expression SEMICOLON')
+        @self.pg.production('expression : ID ASSIGNMENT expression ')
         def assignment(p):
             left = ID(p[0])
             right = p[2]
@@ -119,7 +154,7 @@ class Parser():
 
             return Assignment(left, right)
 
-        @self.pg.production('expression : VAR_DECL ID SEMICOLON')
+        @self.pg.production('expression : VAR_DECL ID')
         def declaration(p):
             if self.debug:
                 print("PARSER_DEBUG ----->>>> Got declaration expression")
