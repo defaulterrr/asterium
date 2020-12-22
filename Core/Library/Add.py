@@ -7,12 +7,7 @@ class Add(BinaryOperation):
 
 
     def eval(self, addresstable, ftable):
-        # address 1
-        # address 2
-        # ld A, address1;
-        # add A, address2;  // -> a
-        # st A, address3;
-        # self.resultAddress = get_random_string()
+
         if self.address != "":
             return self.address
         else:
@@ -30,3 +25,5 @@ class Add(BinaryOperation):
         self.cmds.append("st A," + str(self.address) + ";\n")
         cmds = "".join(self.cmds)
         return cmds
+
+        

@@ -44,3 +44,5 @@ class AddressTable:
 
 
         return "".join(self.lines)
+
+        

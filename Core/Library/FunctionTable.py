@@ -17,3 +17,4 @@ class FunctionTable():
             funcs.append(cmds)
 
         return "".join(funcs)
+

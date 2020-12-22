@@ -11,10 +11,7 @@ variable2 = 127 * 8;
 """
 
 raw_input2 = """
-var a;
-var b;
-a = 3+3;
-b = 6+8/4;
+if (3>2) 
 """
 
 # input = raw_input.split(";")

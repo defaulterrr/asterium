@@ -20,13 +20,14 @@ class Parser():
         self.pg = ParserGenerator(
             ['add', 'sub', 'mul', 'div', 'OPEN_PAR', 'CLOSE_PAR', 'OPEN_BRACKET',
                 'CLOSE_BRACKET', 'NUM', 'ID', 'ASSIGNMENT', 'SEMICOLON', 'VAR_DECL',
-                    'FUNC_DECL'],
+                    'FUNC_DECL', 'GREATER', 'EQUAL', 'LESSER', 'IF'],
             precedence=[
                 ('left', ['ASSIGNMENT']),
                 ('left', ['FUNC_DECL']),
                 ('left', ['add', 'sub']),
                 ('left', ['expression_list','expression']),
-                ('right', ['mul', 'div'])
+                ('left', ['GREATER','EQUAL','LESSER']),
+                ('right', ['mul', 'div']),
             ]
         )
         self.debug = debug
@@ -75,12 +76,6 @@ class Parser():
                 print("PARSER_DEBUG ----->>>> Got init expression list")
             return Node(p[0],p[1])
 
-        # @self.pg.production('expression: expression')
-        # def expression(p):
-        #     if self.debug():
-        #         print("Got an expression: " + str(p))
-            
-
         @self.pg.production('expression : FUNC_DECL ID OPEN_PAR CLOSE_PAR OPEN_BRACKET expression CLOSE_BRACKET')
         def function(p):
             if self.debug:
@@ -119,6 +114,11 @@ class Parser():
 
             return p[1]
 
+
+        # __________________
+        #   ARITHMETICS
+        # ------------------
+
         @self.pg.production('expression : expression add expression')
         @self.pg.production('expression : expression sub expression')
         @self.pg.production('expression : expression mul expression')
@@ -142,6 +142,42 @@ class Parser():
                 return Div(left, right)
             else:
                 raise AssertionError("Undefined token")
+
+        # __________________
+        #   LOGICAL
+        # ------------------
+        @self.pg.production('conditional : IF logical ')
+        def logic_conditional(p):
+            if self.debug:
+                print("PARSER_DEBUG ----->>>> Got logical expression: conditional block")
+                print(p)
+            pass
+
+        # GREATER THAN
+        @self.pg.production('logical : expression GREATER expression')
+        def logic_greater_num(p):
+            if self.debug:
+                print("PARSER_DEBUG ----->>>> Got logical expression: greater than")
+                print(p)
+            pass
+
+        # EQUAL TO
+        @self.pg.production('expression : NUM EQUAL NUM')
+        def logic_equal_num(p):
+            if self.debug:
+                print("PARSER_DEBUG ----->>>> Got logical expression: equal to")
+                print(p)
+            pass
+
+        # LESSER THAN
+        @self.pg.production('expression : NUM LESSER NUM')
+        def logic_lesser_num(p):
+            if self.debug:
+                print("PARSER_DEBUG ----->>>> Got logical expression: lesser than")
+                print(p)
+            pass
+
+        
 
         @self.pg.production('expression : ID ASSIGNMENT expression ')
         def assignment(p):
