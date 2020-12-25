@@ -1,5 +1,5 @@
 from Library.FunctionTable import FunctionTable
-from YaccParser import Parser
+from Parser import Parser
 from Library.AddressTable import AddressTable
 
 result = Parser.parse('''

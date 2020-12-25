@@ -1,6 +1,6 @@
 import ply.yacc as yacc
 
-from Lexing import tokens
+from Lexer import tokens
 
 from Library.Add import Add
 from Library.Sub import Sub
