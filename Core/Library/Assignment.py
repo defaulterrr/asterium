@@ -1,6 +1,7 @@
 from .AddressTable import AddressTable
 from rply.token import BaseBox
 from .BinaryOperation import BinaryOperation
+import textwrap
 
 class Assignment(BinaryOperation):
     def __init__(self, left, right):
@@ -25,6 +26,11 @@ class Assignment(BinaryOperation):
             self.sourceAddress = self.right.eval(addresstable, ftable)
         else:
             raise ValueError("Such variable is not present up to this point")
+
+    def __str__(self):
+        self.assignmentAddressStr = textwrap.indent("Assignment address: {0}".format(self.left.__str__()),"    ")
+        self.sourceAddressStr = textwrap.indent("Source address: {0}".format(self.right.__str__()),"    ")
+        return "Assignment " + "\n" + self.assignmentAddressStr + "\n" + self.sourceAddressStr
 
     def generate(self, addresstable: AddressTable, ftable):
         self.cmds = []

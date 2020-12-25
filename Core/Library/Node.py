@@ -10,6 +10,13 @@ class Node:
         self.left.eval(atable,ftable)
         self.right.eval(atable,ftable)
 
+    def __str__(self):
+        import textwrap
+        self.str = "Node *"
+        self.leftstr = textwrap.indent("   \u21b3" + self.left.__str__(),"  ")
+        self.rightstr = textwrap.indent("   \u21b3" + self.right.__str__(),"  ")
+        return self.str + "\n " + self.leftstr + "\n " + self.rightstr + "\n "
+
     def generate(self,atable,ftable):
         cmds = []
         cmds.append(self.left.generate(atable,ftable))

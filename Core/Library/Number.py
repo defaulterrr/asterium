@@ -16,6 +16,9 @@ class Number(BaseBox):
         # push to name table
         # set self.address = unique name
 
+    def __str__(self):
+        return "Number: {0}".format(self.value)
+
     def eval(self, addresstable, ftable):
         #return self.value
         # self.address = addresstable.push(self.value)

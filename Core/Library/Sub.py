@@ -11,6 +11,13 @@ class Sub(BinaryOperation):
         else:
             self.address = addresstable.push(0)
             return self.address
+
+    def __str__(self):
+        self.str = "Substract, address: {0}".format(self.address)
+        self.leftstr = " \u21b3" + self.left.__str__()
+        self.rightstr = " \u21b3" + self.right.__str__()
+        return self.str + "\n" + self.leftstr + "\n" + self.rightstr + "\n"
+
     def generate(self, addresstable, ftable):
         self.cmds = []
         self.left.eval(addresstable)

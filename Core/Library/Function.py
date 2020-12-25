@@ -1,5 +1,6 @@
 from .FunctionTable import FunctionTable
 from .AddressTable import AddressTable
+import textwrap
 
 class Function():
     def __init__(self, name, node):
@@ -12,6 +13,11 @@ class Function():
         self.node.eval(atable,ftable)
         pass
 
+    def __str__(self):
+        strstr = self.node.__str__()
+        self.nodestr = textwrap.indent(" Function Node: {0}".format(strstr),"    ")
+        # self.nodestr = textwrap.indent(" Function Node: {0}".format(strstr),4)
+        return "Function declaration with name \"{0}\"".format(self.name) + "\n" + self.nodestr
     # generate function body to be later added to the end of the file for calling
     def generate(self, atable:AddressTable, ftable: FunctionTable):
 

@@ -2,310 +2,866 @@ Created by PLY version 3.11 (http://www.dabeaz.com/ply)
 
 Unused terminals:
 
-    SEMICOLON
+    EQUAL
+    GREATER
+    IF
+    LESSER
 
 Grammar
 
-Rule 0     S' -> expr
-Rule 1     expr -> expr PLUS expr
-Rule 2     expr -> expr MINUS expr
-Rule 3     expr -> MINUS expr
-Rule 4     expr -> expr TIMES expr
-Rule 5     expr -> expr DIV expr
-Rule 6     expr -> NUMBER
-Rule 7     expr -> LPAREN expr RPAREN
+Rule 0     S' -> expression
+Rule 1     expression -> expression SMCLN
+Rule 2     expression -> decl_function
+Rule 3     expression -> number
+Rule 4     expression -> expression_list
+Rule 5     expression -> ID LPAR RPAR
+Rule 6     expression_list -> expression expression
+Rule 7     decl_function -> FUNC ID LPAR RPAR compound
+Rule 8     compound -> LBR expression RBR
+Rule 9     expression -> expression PLUS expression
+Rule 10    expression -> expression MINUS expression
+Rule 11    expression -> expression MUL expression
+Rule 12    expression -> expression DIV expression
+Rule 13    expression -> ID ASSIGN expression
+Rule 14    expression -> VAR ID
+Rule 15    number -> NUM
 
 Terminals, with rules where they appear
 
-DIV                  : 5
-LPAREN               : 7
-MINUS                : 2 3
-NUMBER               : 6
-PLUS                 : 1
-RPAREN               : 7
-SEMICOLON            : 
-TIMES                : 4
+ASSIGN               : 13
+DIV                  : 12
+EQUAL                : 
+FUNC                 : 7
+GREATER              : 
+ID                   : 5 7 13 14
+IF                   : 
+LBR                  : 8
+LESSER               : 
+LPAR                 : 5 7
+MINUS                : 10
+MUL                  : 11
+NUM                  : 15
+PLUS                 : 9
+RBR                  : 8
+RPAR                 : 5 7
+SMCLN                : 1
+VAR                  : 14
 error                : 
 
 Nonterminals, with rules where they appear
 
-expr                 : 1 1 2 2 3 4 4 5 5 7 0
+compound             : 7
+decl_function        : 2
+expression           : 1 6 6 8 9 9 10 10 11 11 12 12 13 0
+expression_list      : 4
+number               : 3
 
 Parsing method: LALR
 
 state 0
 
-    (0) S' -> . expr
-    (1) expr -> . expr PLUS expr
-    (2) expr -> . expr MINUS expr
-    (3) expr -> . MINUS expr
-    (4) expr -> . expr TIMES expr
-    (5) expr -> . expr DIV expr
-    (6) expr -> . NUMBER
-    (7) expr -> . LPAREN expr RPAREN
+    (0) S' -> . expression
+    (1) expression -> . expression SMCLN
+    (2) expression -> . decl_function
+    (3) expression -> . number
+    (4) expression -> . expression_list
+    (5) expression -> . ID LPAR RPAR
+    (9) expression -> . expression PLUS expression
+    (10) expression -> . expression MINUS expression
+    (11) expression -> . expression MUL expression
+    (12) expression -> . expression DIV expression
+    (13) expression -> . ID ASSIGN expression
+    (14) expression -> . VAR ID
+    (7) decl_function -> . FUNC ID LPAR RPAR compound
+    (15) number -> . NUM
+    (6) expression_list -> . expression expression
 
-    MINUS           shift and go to state 2
-    NUMBER          shift and go to state 3
-    LPAREN          shift and go to state 4
+    ID              shift and go to state 5
+    VAR             shift and go to state 6
+    FUNC            shift and go to state 7
+    NUM             shift and go to state 8
 
-    expr                           shift and go to state 1
+    expression                     shift and go to state 1
+    decl_function                  shift and go to state 2
+    number                         shift and go to state 3
+    expression_list                shift and go to state 4
 
 state 1
 
-    (0) S' -> expr .
-    (1) expr -> expr . PLUS expr
-    (2) expr -> expr . MINUS expr
-    (4) expr -> expr . TIMES expr
-    (5) expr -> expr . DIV expr
+    (0) S' -> expression .
+    (1) expression -> expression . SMCLN
+    (9) expression -> expression . PLUS expression
+    (10) expression -> expression . MINUS expression
+    (11) expression -> expression . MUL expression
+    (12) expression -> expression . DIV expression
+    (6) expression_list -> expression . expression
+    (1) expression -> . expression SMCLN
+    (2) expression -> . decl_function
+    (3) expression -> . number
+    (4) expression -> . expression_list
+    (5) expression -> . ID LPAR RPAR
+    (9) expression -> . expression PLUS expression
+    (10) expression -> . expression MINUS expression
+    (11) expression -> . expression MUL expression
+    (12) expression -> . expression DIV expression
+    (13) expression -> . ID ASSIGN expression
+    (14) expression -> . VAR ID
+    (7) decl_function -> . FUNC ID LPAR RPAR compound
+    (15) number -> . NUM
+    (6) expression_list -> . expression expression
 
-    PLUS            shift and go to state 5
-    MINUS           shift and go to state 6
-    TIMES           shift and go to state 7
-    DIV             shift and go to state 8
+    SMCLN           shift and go to state 10
+    PLUS            shift and go to state 11
+    MINUS           shift and go to state 12
+    MUL             shift and go to state 13
+    DIV             shift and go to state 14
+    ID              shift and go to state 5
+    VAR             shift and go to state 6
+    FUNC            shift and go to state 7
+    NUM             shift and go to state 8
 
+    expression                     shift and go to state 9
+    decl_function                  shift and go to state 2
+    number                         shift and go to state 3
+    expression_list                shift and go to state 4
 
 state 2
 
-    (3) expr -> MINUS . expr
-    (1) expr -> . expr PLUS expr
-    (2) expr -> . expr MINUS expr
-    (3) expr -> . MINUS expr
-    (4) expr -> . expr TIMES expr
-    (5) expr -> . expr DIV expr
-    (6) expr -> . NUMBER
-    (7) expr -> . LPAREN expr RPAREN
+    (2) expression -> decl_function .
 
-    MINUS           shift and go to state 2
-    NUMBER          shift and go to state 3
-    LPAREN          shift and go to state 4
+    SMCLN           reduce using rule 2 (expression -> decl_function .)
+    PLUS            reduce using rule 2 (expression -> decl_function .)
+    MINUS           reduce using rule 2 (expression -> decl_function .)
+    MUL             reduce using rule 2 (expression -> decl_function .)
+    DIV             reduce using rule 2 (expression -> decl_function .)
+    ID              reduce using rule 2 (expression -> decl_function .)
+    VAR             reduce using rule 2 (expression -> decl_function .)
+    FUNC            reduce using rule 2 (expression -> decl_function .)
+    NUM             reduce using rule 2 (expression -> decl_function .)
+    $end            reduce using rule 2 (expression -> decl_function .)
+    RBR             reduce using rule 2 (expression -> decl_function .)
 
-    expr                           shift and go to state 9
 
 state 3
 
-    (6) expr -> NUMBER .
+    (3) expression -> number .
 
-    PLUS            reduce using rule 6 (expr -> NUMBER .)
-    MINUS           reduce using rule 6 (expr -> NUMBER .)
-    TIMES           reduce using rule 6 (expr -> NUMBER .)
-    DIV             reduce using rule 6 (expr -> NUMBER .)
-    $end            reduce using rule 6 (expr -> NUMBER .)
-    RPAREN          reduce using rule 6 (expr -> NUMBER .)
+    SMCLN           reduce using rule 3 (expression -> number .)
+    PLUS            reduce using rule 3 (expression -> number .)
+    MINUS           reduce using rule 3 (expression -> number .)
+    MUL             reduce using rule 3 (expression -> number .)
+    DIV             reduce using rule 3 (expression -> number .)
+    ID              reduce using rule 3 (expression -> number .)
+    VAR             reduce using rule 3 (expression -> number .)
+    FUNC            reduce using rule 3 (expression -> number .)
+    NUM             reduce using rule 3 (expression -> number .)
+    $end            reduce using rule 3 (expression -> number .)
+    RBR             reduce using rule 3 (expression -> number .)
 
 
 state 4
 
-    (7) expr -> LPAREN . expr RPAREN
-    (1) expr -> . expr PLUS expr
-    (2) expr -> . expr MINUS expr
-    (3) expr -> . MINUS expr
-    (4) expr -> . expr TIMES expr
-    (5) expr -> . expr DIV expr
-    (6) expr -> . NUMBER
-    (7) expr -> . LPAREN expr RPAREN
+    (4) expression -> expression_list .
 
-    MINUS           shift and go to state 2
-    NUMBER          shift and go to state 3
-    LPAREN          shift and go to state 4
+    SMCLN           reduce using rule 4 (expression -> expression_list .)
+    PLUS            reduce using rule 4 (expression -> expression_list .)
+    MINUS           reduce using rule 4 (expression -> expression_list .)
+    MUL             reduce using rule 4 (expression -> expression_list .)
+    DIV             reduce using rule 4 (expression -> expression_list .)
+    ID              reduce using rule 4 (expression -> expression_list .)
+    VAR             reduce using rule 4 (expression -> expression_list .)
+    FUNC            reduce using rule 4 (expression -> expression_list .)
+    NUM             reduce using rule 4 (expression -> expression_list .)
+    $end            reduce using rule 4 (expression -> expression_list .)
+    RBR             reduce using rule 4 (expression -> expression_list .)
 
-    expr                           shift and go to state 10
 
 state 5
 
-    (1) expr -> expr PLUS . expr
-    (1) expr -> . expr PLUS expr
-    (2) expr -> . expr MINUS expr
-    (3) expr -> . MINUS expr
-    (4) expr -> . expr TIMES expr
-    (5) expr -> . expr DIV expr
-    (6) expr -> . NUMBER
-    (7) expr -> . LPAREN expr RPAREN
+    (5) expression -> ID . LPAR RPAR
+    (13) expression -> ID . ASSIGN expression
 
-    MINUS           shift and go to state 2
-    NUMBER          shift and go to state 3
-    LPAREN          shift and go to state 4
+    LPAR            shift and go to state 15
+    ASSIGN          shift and go to state 16
 
-    expr                           shift and go to state 11
 
 state 6
 
-    (2) expr -> expr MINUS . expr
-    (1) expr -> . expr PLUS expr
-    (2) expr -> . expr MINUS expr
-    (3) expr -> . MINUS expr
-    (4) expr -> . expr TIMES expr
-    (5) expr -> . expr DIV expr
-    (6) expr -> . NUMBER
-    (7) expr -> . LPAREN expr RPAREN
+    (14) expression -> VAR . ID
 
-    MINUS           shift and go to state 2
-    NUMBER          shift and go to state 3
-    LPAREN          shift and go to state 4
+    ID              shift and go to state 17
 
-    expr                           shift and go to state 12
 
 state 7
 
-    (4) expr -> expr TIMES . expr
-    (1) expr -> . expr PLUS expr
-    (2) expr -> . expr MINUS expr
-    (3) expr -> . MINUS expr
-    (4) expr -> . expr TIMES expr
-    (5) expr -> . expr DIV expr
-    (6) expr -> . NUMBER
-    (7) expr -> . LPAREN expr RPAREN
+    (7) decl_function -> FUNC . ID LPAR RPAR compound
 
-    MINUS           shift and go to state 2
-    NUMBER          shift and go to state 3
-    LPAREN          shift and go to state 4
+    ID              shift and go to state 18
 
-    expr                           shift and go to state 13
 
 state 8
 
-    (5) expr -> expr DIV . expr
-    (1) expr -> . expr PLUS expr
-    (2) expr -> . expr MINUS expr
-    (3) expr -> . MINUS expr
-    (4) expr -> . expr TIMES expr
-    (5) expr -> . expr DIV expr
-    (6) expr -> . NUMBER
-    (7) expr -> . LPAREN expr RPAREN
+    (15) number -> NUM .
 
-    MINUS           shift and go to state 2
-    NUMBER          shift and go to state 3
-    LPAREN          shift and go to state 4
+    SMCLN           reduce using rule 15 (number -> NUM .)
+    PLUS            reduce using rule 15 (number -> NUM .)
+    MINUS           reduce using rule 15 (number -> NUM .)
+    MUL             reduce using rule 15 (number -> NUM .)
+    DIV             reduce using rule 15 (number -> NUM .)
+    ID              reduce using rule 15 (number -> NUM .)
+    VAR             reduce using rule 15 (number -> NUM .)
+    FUNC            reduce using rule 15 (number -> NUM .)
+    NUM             reduce using rule 15 (number -> NUM .)
+    $end            reduce using rule 15 (number -> NUM .)
+    RBR             reduce using rule 15 (number -> NUM .)
 
-    expr                           shift and go to state 14
 
 state 9
 
-    (3) expr -> MINUS expr .
-    (1) expr -> expr . PLUS expr
-    (2) expr -> expr . MINUS expr
-    (4) expr -> expr . TIMES expr
-    (5) expr -> expr . DIV expr
+    (6) expression_list -> expression expression .
+    (1) expression -> expression . SMCLN
+    (9) expression -> expression . PLUS expression
+    (10) expression -> expression . MINUS expression
+    (11) expression -> expression . MUL expression
+    (12) expression -> expression . DIV expression
+    (6) expression_list -> expression . expression
+    (1) expression -> . expression SMCLN
+    (2) expression -> . decl_function
+    (3) expression -> . number
+    (4) expression -> . expression_list
+    (5) expression -> . ID LPAR RPAR
+    (9) expression -> . expression PLUS expression
+    (10) expression -> . expression MINUS expression
+    (11) expression -> . expression MUL expression
+    (12) expression -> . expression DIV expression
+    (13) expression -> . ID ASSIGN expression
+    (14) expression -> . VAR ID
+    (7) decl_function -> . FUNC ID LPAR RPAR compound
+    (15) number -> . NUM
+    (6) expression_list -> . expression expression
 
-    PLUS            reduce using rule 3 (expr -> MINUS expr .)
-    MINUS           reduce using rule 3 (expr -> MINUS expr .)
-    TIMES           reduce using rule 3 (expr -> MINUS expr .)
-    DIV             reduce using rule 3 (expr -> MINUS expr .)
-    $end            reduce using rule 3 (expr -> MINUS expr .)
-    RPAREN          reduce using rule 3 (expr -> MINUS expr .)
+  ! shift/reduce conflict for SMCLN resolved as shift
+  ! shift/reduce conflict for PLUS resolved as shift
+  ! shift/reduce conflict for MINUS resolved as shift
+  ! shift/reduce conflict for MUL resolved as shift
+  ! shift/reduce conflict for DIV resolved as shift
+  ! shift/reduce conflict for ID resolved as shift
+  ! shift/reduce conflict for VAR resolved as shift
+  ! shift/reduce conflict for FUNC resolved as shift
+  ! shift/reduce conflict for NUM resolved as shift
+    $end            reduce using rule 6 (expression_list -> expression expression .)
+    RBR             reduce using rule 6 (expression_list -> expression expression .)
+    SMCLN           shift and go to state 10
+    PLUS            shift and go to state 11
+    MINUS           shift and go to state 12
+    MUL             shift and go to state 13
+    DIV             shift and go to state 14
+    ID              shift and go to state 5
+    VAR             shift and go to state 6
+    FUNC            shift and go to state 7
+    NUM             shift and go to state 8
 
-  ! PLUS            [ shift and go to state 5 ]
-  ! MINUS           [ shift and go to state 6 ]
-  ! TIMES           [ shift and go to state 7 ]
-  ! DIV             [ shift and go to state 8 ]
+  ! SMCLN           [ reduce using rule 6 (expression_list -> expression expression .) ]
+  ! PLUS            [ reduce using rule 6 (expression_list -> expression expression .) ]
+  ! MINUS           [ reduce using rule 6 (expression_list -> expression expression .) ]
+  ! MUL             [ reduce using rule 6 (expression_list -> expression expression .) ]
+  ! DIV             [ reduce using rule 6 (expression_list -> expression expression .) ]
+  ! ID              [ reduce using rule 6 (expression_list -> expression expression .) ]
+  ! VAR             [ reduce using rule 6 (expression_list -> expression expression .) ]
+  ! FUNC            [ reduce using rule 6 (expression_list -> expression expression .) ]
+  ! NUM             [ reduce using rule 6 (expression_list -> expression expression .) ]
 
+    expression                     shift and go to state 9
+    decl_function                  shift and go to state 2
+    number                         shift and go to state 3
+    expression_list                shift and go to state 4
 
 state 10
 
-    (7) expr -> LPAREN expr . RPAREN
-    (1) expr -> expr . PLUS expr
-    (2) expr -> expr . MINUS expr
-    (4) expr -> expr . TIMES expr
-    (5) expr -> expr . DIV expr
+    (1) expression -> expression SMCLN .
 
-    RPAREN          shift and go to state 15
-    PLUS            shift and go to state 5
-    MINUS           shift and go to state 6
-    TIMES           shift and go to state 7
-    DIV             shift and go to state 8
+    SMCLN           reduce using rule 1 (expression -> expression SMCLN .)
+    PLUS            reduce using rule 1 (expression -> expression SMCLN .)
+    MINUS           reduce using rule 1 (expression -> expression SMCLN .)
+    MUL             reduce using rule 1 (expression -> expression SMCLN .)
+    DIV             reduce using rule 1 (expression -> expression SMCLN .)
+    ID              reduce using rule 1 (expression -> expression SMCLN .)
+    VAR             reduce using rule 1 (expression -> expression SMCLN .)
+    FUNC            reduce using rule 1 (expression -> expression SMCLN .)
+    NUM             reduce using rule 1 (expression -> expression SMCLN .)
+    $end            reduce using rule 1 (expression -> expression SMCLN .)
+    RBR             reduce using rule 1 (expression -> expression SMCLN .)
 
 
 state 11
 
-    (1) expr -> expr PLUS expr .
-    (1) expr -> expr . PLUS expr
-    (2) expr -> expr . MINUS expr
-    (4) expr -> expr . TIMES expr
-    (5) expr -> expr . DIV expr
+    (9) expression -> expression PLUS . expression
+    (1) expression -> . expression SMCLN
+    (2) expression -> . decl_function
+    (3) expression -> . number
+    (4) expression -> . expression_list
+    (5) expression -> . ID LPAR RPAR
+    (9) expression -> . expression PLUS expression
+    (10) expression -> . expression MINUS expression
+    (11) expression -> . expression MUL expression
+    (12) expression -> . expression DIV expression
+    (13) expression -> . ID ASSIGN expression
+    (14) expression -> . VAR ID
+    (7) decl_function -> . FUNC ID LPAR RPAR compound
+    (15) number -> . NUM
+    (6) expression_list -> . expression expression
 
-    PLUS            reduce using rule 1 (expr -> expr PLUS expr .)
-    MINUS           reduce using rule 1 (expr -> expr PLUS expr .)
-    $end            reduce using rule 1 (expr -> expr PLUS expr .)
-    RPAREN          reduce using rule 1 (expr -> expr PLUS expr .)
-    TIMES           shift and go to state 7
-    DIV             shift and go to state 8
+    ID              shift and go to state 5
+    VAR             shift and go to state 6
+    FUNC            shift and go to state 7
+    NUM             shift and go to state 8
 
-  ! TIMES           [ reduce using rule 1 (expr -> expr PLUS expr .) ]
-  ! DIV             [ reduce using rule 1 (expr -> expr PLUS expr .) ]
-  ! PLUS            [ shift and go to state 5 ]
-  ! MINUS           [ shift and go to state 6 ]
-
+    expression                     shift and go to state 19
+    decl_function                  shift and go to state 2
+    number                         shift and go to state 3
+    expression_list                shift and go to state 4
 
 state 12
 
-    (2) expr -> expr MINUS expr .
-    (1) expr -> expr . PLUS expr
-    (2) expr -> expr . MINUS expr
-    (4) expr -> expr . TIMES expr
-    (5) expr -> expr . DIV expr
+    (10) expression -> expression MINUS . expression
+    (1) expression -> . expression SMCLN
+    (2) expression -> . decl_function
+    (3) expression -> . number
+    (4) expression -> . expression_list
+    (5) expression -> . ID LPAR RPAR
+    (9) expression -> . expression PLUS expression
+    (10) expression -> . expression MINUS expression
+    (11) expression -> . expression MUL expression
+    (12) expression -> . expression DIV expression
+    (13) expression -> . ID ASSIGN expression
+    (14) expression -> . VAR ID
+    (7) decl_function -> . FUNC ID LPAR RPAR compound
+    (15) number -> . NUM
+    (6) expression_list -> . expression expression
 
-    PLUS            reduce using rule 2 (expr -> expr MINUS expr .)
-    MINUS           reduce using rule 2 (expr -> expr MINUS expr .)
-    $end            reduce using rule 2 (expr -> expr MINUS expr .)
-    RPAREN          reduce using rule 2 (expr -> expr MINUS expr .)
-    TIMES           shift and go to state 7
-    DIV             shift and go to state 8
+    ID              shift and go to state 5
+    VAR             shift and go to state 6
+    FUNC            shift and go to state 7
+    NUM             shift and go to state 8
 
-  ! TIMES           [ reduce using rule 2 (expr -> expr MINUS expr .) ]
-  ! DIV             [ reduce using rule 2 (expr -> expr MINUS expr .) ]
-  ! PLUS            [ shift and go to state 5 ]
-  ! MINUS           [ shift and go to state 6 ]
-
+    expression                     shift and go to state 20
+    decl_function                  shift and go to state 2
+    number                         shift and go to state 3
+    expression_list                shift and go to state 4
 
 state 13
 
-    (4) expr -> expr TIMES expr .
-    (1) expr -> expr . PLUS expr
-    (2) expr -> expr . MINUS expr
-    (4) expr -> expr . TIMES expr
-    (5) expr -> expr . DIV expr
+    (11) expression -> expression MUL . expression
+    (1) expression -> . expression SMCLN
+    (2) expression -> . decl_function
+    (3) expression -> . number
+    (4) expression -> . expression_list
+    (5) expression -> . ID LPAR RPAR
+    (9) expression -> . expression PLUS expression
+    (10) expression -> . expression MINUS expression
+    (11) expression -> . expression MUL expression
+    (12) expression -> . expression DIV expression
+    (13) expression -> . ID ASSIGN expression
+    (14) expression -> . VAR ID
+    (7) decl_function -> . FUNC ID LPAR RPAR compound
+    (15) number -> . NUM
+    (6) expression_list -> . expression expression
 
-    PLUS            reduce using rule 4 (expr -> expr TIMES expr .)
-    MINUS           reduce using rule 4 (expr -> expr TIMES expr .)
-    TIMES           reduce using rule 4 (expr -> expr TIMES expr .)
-    DIV             reduce using rule 4 (expr -> expr TIMES expr .)
-    $end            reduce using rule 4 (expr -> expr TIMES expr .)
-    RPAREN          reduce using rule 4 (expr -> expr TIMES expr .)
+    ID              shift and go to state 5
+    VAR             shift and go to state 6
+    FUNC            shift and go to state 7
+    NUM             shift and go to state 8
 
-  ! PLUS            [ shift and go to state 5 ]
-  ! MINUS           [ shift and go to state 6 ]
-  ! TIMES           [ shift and go to state 7 ]
-  ! DIV             [ shift and go to state 8 ]
-
+    expression                     shift and go to state 21
+    decl_function                  shift and go to state 2
+    number                         shift and go to state 3
+    expression_list                shift and go to state 4
 
 state 14
 
-    (5) expr -> expr DIV expr .
-    (1) expr -> expr . PLUS expr
-    (2) expr -> expr . MINUS expr
-    (4) expr -> expr . TIMES expr
-    (5) expr -> expr . DIV expr
+    (12) expression -> expression DIV . expression
+    (1) expression -> . expression SMCLN
+    (2) expression -> . decl_function
+    (3) expression -> . number
+    (4) expression -> . expression_list
+    (5) expression -> . ID LPAR RPAR
+    (9) expression -> . expression PLUS expression
+    (10) expression -> . expression MINUS expression
+    (11) expression -> . expression MUL expression
+    (12) expression -> . expression DIV expression
+    (13) expression -> . ID ASSIGN expression
+    (14) expression -> . VAR ID
+    (7) decl_function -> . FUNC ID LPAR RPAR compound
+    (15) number -> . NUM
+    (6) expression_list -> . expression expression
 
-    PLUS            reduce using rule 5 (expr -> expr DIV expr .)
-    MINUS           reduce using rule 5 (expr -> expr DIV expr .)
-    TIMES           reduce using rule 5 (expr -> expr DIV expr .)
-    DIV             reduce using rule 5 (expr -> expr DIV expr .)
-    $end            reduce using rule 5 (expr -> expr DIV expr .)
-    RPAREN          reduce using rule 5 (expr -> expr DIV expr .)
+    ID              shift and go to state 5
+    VAR             shift and go to state 6
+    FUNC            shift and go to state 7
+    NUM             shift and go to state 8
 
-  ! PLUS            [ shift and go to state 5 ]
-  ! MINUS           [ shift and go to state 6 ]
-  ! TIMES           [ shift and go to state 7 ]
-  ! DIV             [ shift and go to state 8 ]
-
+    expression                     shift and go to state 22
+    decl_function                  shift and go to state 2
+    number                         shift and go to state 3
+    expression_list                shift and go to state 4
 
 state 15
 
-    (7) expr -> LPAREN expr RPAREN .
+    (5) expression -> ID LPAR . RPAR
 
-    PLUS            reduce using rule 7 (expr -> LPAREN expr RPAREN .)
-    MINUS           reduce using rule 7 (expr -> LPAREN expr RPAREN .)
-    TIMES           reduce using rule 7 (expr -> LPAREN expr RPAREN .)
-    DIV             reduce using rule 7 (expr -> LPAREN expr RPAREN .)
-    $end            reduce using rule 7 (expr -> LPAREN expr RPAREN .)
-    RPAREN          reduce using rule 7 (expr -> LPAREN expr RPAREN .)
+    RPAR            shift and go to state 23
 
+
+state 16
+
+    (13) expression -> ID ASSIGN . expression
+    (1) expression -> . expression SMCLN
+    (2) expression -> . decl_function
+    (3) expression -> . number
+    (4) expression -> . expression_list
+    (5) expression -> . ID LPAR RPAR
+    (9) expression -> . expression PLUS expression
+    (10) expression -> . expression MINUS expression
+    (11) expression -> . expression MUL expression
+    (12) expression -> . expression DIV expression
+    (13) expression -> . ID ASSIGN expression
+    (14) expression -> . VAR ID
+    (7) decl_function -> . FUNC ID LPAR RPAR compound
+    (15) number -> . NUM
+    (6) expression_list -> . expression expression
+
+    ID              shift and go to state 5
+    VAR             shift and go to state 6
+    FUNC            shift and go to state 7
+    NUM             shift and go to state 8
+
+    expression                     shift and go to state 24
+    decl_function                  shift and go to state 2
+    number                         shift and go to state 3
+    expression_list                shift and go to state 4
+
+state 17
+
+    (14) expression -> VAR ID .
+
+    SMCLN           reduce using rule 14 (expression -> VAR ID .)
+    PLUS            reduce using rule 14 (expression -> VAR ID .)
+    MINUS           reduce using rule 14 (expression -> VAR ID .)
+    MUL             reduce using rule 14 (expression -> VAR ID .)
+    DIV             reduce using rule 14 (expression -> VAR ID .)
+    ID              reduce using rule 14 (expression -> VAR ID .)
+    VAR             reduce using rule 14 (expression -> VAR ID .)
+    FUNC            reduce using rule 14 (expression -> VAR ID .)
+    NUM             reduce using rule 14 (expression -> VAR ID .)
+    $end            reduce using rule 14 (expression -> VAR ID .)
+    RBR             reduce using rule 14 (expression -> VAR ID .)
+
+
+state 18
+
+    (7) decl_function -> FUNC ID . LPAR RPAR compound
+
+    LPAR            shift and go to state 25
+
+
+state 19
+
+    (9) expression -> expression PLUS expression .
+    (1) expression -> expression . SMCLN
+    (9) expression -> expression . PLUS expression
+    (10) expression -> expression . MINUS expression
+    (11) expression -> expression . MUL expression
+    (12) expression -> expression . DIV expression
+    (6) expression_list -> expression . expression
+    (1) expression -> . expression SMCLN
+    (2) expression -> . decl_function
+    (3) expression -> . number
+    (4) expression -> . expression_list
+    (5) expression -> . ID LPAR RPAR
+    (9) expression -> . expression PLUS expression
+    (10) expression -> . expression MINUS expression
+    (11) expression -> . expression MUL expression
+    (12) expression -> . expression DIV expression
+    (13) expression -> . ID ASSIGN expression
+    (14) expression -> . VAR ID
+    (7) decl_function -> . FUNC ID LPAR RPAR compound
+    (15) number -> . NUM
+    (6) expression_list -> . expression expression
+
+    SMCLN           reduce using rule 9 (expression -> expression PLUS expression .)
+    PLUS            reduce using rule 9 (expression -> expression PLUS expression .)
+    MINUS           reduce using rule 9 (expression -> expression PLUS expression .)
+    ID              reduce using rule 9 (expression -> expression PLUS expression .)
+    VAR             reduce using rule 9 (expression -> expression PLUS expression .)
+    FUNC            reduce using rule 9 (expression -> expression PLUS expression .)
+    NUM             reduce using rule 9 (expression -> expression PLUS expression .)
+    $end            reduce using rule 9 (expression -> expression PLUS expression .)
+    RBR             reduce using rule 9 (expression -> expression PLUS expression .)
+    MUL             shift and go to state 13
+    DIV             shift and go to state 14
+
+  ! MUL             [ reduce using rule 9 (expression -> expression PLUS expression .) ]
+  ! DIV             [ reduce using rule 9 (expression -> expression PLUS expression .) ]
+  ! SMCLN           [ shift and go to state 10 ]
+  ! PLUS            [ shift and go to state 11 ]
+  ! MINUS           [ shift and go to state 12 ]
+  ! ID              [ shift and go to state 5 ]
+  ! VAR             [ shift and go to state 6 ]
+  ! FUNC            [ shift and go to state 7 ]
+  ! NUM             [ shift and go to state 8 ]
+
+    expression                     shift and go to state 9
+    decl_function                  shift and go to state 2
+    number                         shift and go to state 3
+    expression_list                shift and go to state 4
+
+state 20
+
+    (10) expression -> expression MINUS expression .
+    (1) expression -> expression . SMCLN
+    (9) expression -> expression . PLUS expression
+    (10) expression -> expression . MINUS expression
+    (11) expression -> expression . MUL expression
+    (12) expression -> expression . DIV expression
+    (6) expression_list -> expression . expression
+    (1) expression -> . expression SMCLN
+    (2) expression -> . decl_function
+    (3) expression -> . number
+    (4) expression -> . expression_list
+    (5) expression -> . ID LPAR RPAR
+    (9) expression -> . expression PLUS expression
+    (10) expression -> . expression MINUS expression
+    (11) expression -> . expression MUL expression
+    (12) expression -> . expression DIV expression
+    (13) expression -> . ID ASSIGN expression
+    (14) expression -> . VAR ID
+    (7) decl_function -> . FUNC ID LPAR RPAR compound
+    (15) number -> . NUM
+    (6) expression_list -> . expression expression
+
+    SMCLN           reduce using rule 10 (expression -> expression MINUS expression .)
+    PLUS            reduce using rule 10 (expression -> expression MINUS expression .)
+    MINUS           reduce using rule 10 (expression -> expression MINUS expression .)
+    ID              reduce using rule 10 (expression -> expression MINUS expression .)
+    VAR             reduce using rule 10 (expression -> expression MINUS expression .)
+    FUNC            reduce using rule 10 (expression -> expression MINUS expression .)
+    NUM             reduce using rule 10 (expression -> expression MINUS expression .)
+    $end            reduce using rule 10 (expression -> expression MINUS expression .)
+    RBR             reduce using rule 10 (expression -> expression MINUS expression .)
+    MUL             shift and go to state 13
+    DIV             shift and go to state 14
+
+  ! MUL             [ reduce using rule 10 (expression -> expression MINUS expression .) ]
+  ! DIV             [ reduce using rule 10 (expression -> expression MINUS expression .) ]
+  ! SMCLN           [ shift and go to state 10 ]
+  ! PLUS            [ shift and go to state 11 ]
+  ! MINUS           [ shift and go to state 12 ]
+  ! ID              [ shift and go to state 5 ]
+  ! VAR             [ shift and go to state 6 ]
+  ! FUNC            [ shift and go to state 7 ]
+  ! NUM             [ shift and go to state 8 ]
+
+    expression                     shift and go to state 9
+    decl_function                  shift and go to state 2
+    number                         shift and go to state 3
+    expression_list                shift and go to state 4
+
+state 21
+
+    (11) expression -> expression MUL expression .
+    (1) expression -> expression . SMCLN
+    (9) expression -> expression . PLUS expression
+    (10) expression -> expression . MINUS expression
+    (11) expression -> expression . MUL expression
+    (12) expression -> expression . DIV expression
+    (6) expression_list -> expression . expression
+    (1) expression -> . expression SMCLN
+    (2) expression -> . decl_function
+    (3) expression -> . number
+    (4) expression -> . expression_list
+    (5) expression -> . ID LPAR RPAR
+    (9) expression -> . expression PLUS expression
+    (10) expression -> . expression MINUS expression
+    (11) expression -> . expression MUL expression
+    (12) expression -> . expression DIV expression
+    (13) expression -> . ID ASSIGN expression
+    (14) expression -> . VAR ID
+    (7) decl_function -> . FUNC ID LPAR RPAR compound
+    (15) number -> . NUM
+    (6) expression_list -> . expression expression
+
+    SMCLN           reduce using rule 11 (expression -> expression MUL expression .)
+    PLUS            reduce using rule 11 (expression -> expression MUL expression .)
+    MINUS           reduce using rule 11 (expression -> expression MUL expression .)
+    MUL             reduce using rule 11 (expression -> expression MUL expression .)
+    DIV             reduce using rule 11 (expression -> expression MUL expression .)
+    ID              reduce using rule 11 (expression -> expression MUL expression .)
+    VAR             reduce using rule 11 (expression -> expression MUL expression .)
+    FUNC            reduce using rule 11 (expression -> expression MUL expression .)
+    NUM             reduce using rule 11 (expression -> expression MUL expression .)
+    $end            reduce using rule 11 (expression -> expression MUL expression .)
+    RBR             reduce using rule 11 (expression -> expression MUL expression .)
+
+  ! SMCLN           [ shift and go to state 10 ]
+  ! PLUS            [ shift and go to state 11 ]
+  ! MINUS           [ shift and go to state 12 ]
+  ! MUL             [ shift and go to state 13 ]
+  ! DIV             [ shift and go to state 14 ]
+  ! ID              [ shift and go to state 5 ]
+  ! VAR             [ shift and go to state 6 ]
+  ! FUNC            [ shift and go to state 7 ]
+  ! NUM             [ shift and go to state 8 ]
+
+    expression                     shift and go to state 9
+    decl_function                  shift and go to state 2
+    number                         shift and go to state 3
+    expression_list                shift and go to state 4
+
+state 22
+
+    (12) expression -> expression DIV expression .
+    (1) expression -> expression . SMCLN
+    (9) expression -> expression . PLUS expression
+    (10) expression -> expression . MINUS expression
+    (11) expression -> expression . MUL expression
+    (12) expression -> expression . DIV expression
+    (6) expression_list -> expression . expression
+    (1) expression -> . expression SMCLN
+    (2) expression -> . decl_function
+    (3) expression -> . number
+    (4) expression -> . expression_list
+    (5) expression -> . ID LPAR RPAR
+    (9) expression -> . expression PLUS expression
+    (10) expression -> . expression MINUS expression
+    (11) expression -> . expression MUL expression
+    (12) expression -> . expression DIV expression
+    (13) expression -> . ID ASSIGN expression
+    (14) expression -> . VAR ID
+    (7) decl_function -> . FUNC ID LPAR RPAR compound
+    (15) number -> . NUM
+    (6) expression_list -> . expression expression
+
+    SMCLN           reduce using rule 12 (expression -> expression DIV expression .)
+    PLUS            reduce using rule 12 (expression -> expression DIV expression .)
+    MINUS           reduce using rule 12 (expression -> expression DIV expression .)
+    MUL             reduce using rule 12 (expression -> expression DIV expression .)
+    DIV             reduce using rule 12 (expression -> expression DIV expression .)
+    ID              reduce using rule 12 (expression -> expression DIV expression .)
+    VAR             reduce using rule 12 (expression -> expression DIV expression .)
+    FUNC            reduce using rule 12 (expression -> expression DIV expression .)
+    NUM             reduce using rule 12 (expression -> expression DIV expression .)
+    $end            reduce using rule 12 (expression -> expression DIV expression .)
+    RBR             reduce using rule 12 (expression -> expression DIV expression .)
+
+  ! SMCLN           [ shift and go to state 10 ]
+  ! PLUS            [ shift and go to state 11 ]
+  ! MINUS           [ shift and go to state 12 ]
+  ! MUL             [ shift and go to state 13 ]
+  ! DIV             [ shift and go to state 14 ]
+  ! ID              [ shift and go to state 5 ]
+  ! VAR             [ shift and go to state 6 ]
+  ! FUNC            [ shift and go to state 7 ]
+  ! NUM             [ shift and go to state 8 ]
+
+    expression                     shift and go to state 9
+    decl_function                  shift and go to state 2
+    number                         shift and go to state 3
+    expression_list                shift and go to state 4
+
+state 23
+
+    (5) expression -> ID LPAR RPAR .
+
+    SMCLN           reduce using rule 5 (expression -> ID LPAR RPAR .)
+    PLUS            reduce using rule 5 (expression -> ID LPAR RPAR .)
+    MINUS           reduce using rule 5 (expression -> ID LPAR RPAR .)
+    MUL             reduce using rule 5 (expression -> ID LPAR RPAR .)
+    DIV             reduce using rule 5 (expression -> ID LPAR RPAR .)
+    ID              reduce using rule 5 (expression -> ID LPAR RPAR .)
+    VAR             reduce using rule 5 (expression -> ID LPAR RPAR .)
+    FUNC            reduce using rule 5 (expression -> ID LPAR RPAR .)
+    NUM             reduce using rule 5 (expression -> ID LPAR RPAR .)
+    $end            reduce using rule 5 (expression -> ID LPAR RPAR .)
+    RBR             reduce using rule 5 (expression -> ID LPAR RPAR .)
+
+
+state 24
+
+    (13) expression -> ID ASSIGN expression .
+    (1) expression -> expression . SMCLN
+    (9) expression -> expression . PLUS expression
+    (10) expression -> expression . MINUS expression
+    (11) expression -> expression . MUL expression
+    (12) expression -> expression . DIV expression
+    (6) expression_list -> expression . expression
+    (1) expression -> . expression SMCLN
+    (2) expression -> . decl_function
+    (3) expression -> . number
+    (4) expression -> . expression_list
+    (5) expression -> . ID LPAR RPAR
+    (9) expression -> . expression PLUS expression
+    (10) expression -> . expression MINUS expression
+    (11) expression -> . expression MUL expression
+    (12) expression -> . expression DIV expression
+    (13) expression -> . ID ASSIGN expression
+    (14) expression -> . VAR ID
+    (7) decl_function -> . FUNC ID LPAR RPAR compound
+    (15) number -> . NUM
+    (6) expression_list -> . expression expression
+
+    SMCLN           reduce using rule 13 (expression -> ID ASSIGN expression .)
+    ID              reduce using rule 13 (expression -> ID ASSIGN expression .)
+    VAR             reduce using rule 13 (expression -> ID ASSIGN expression .)
+    FUNC            reduce using rule 13 (expression -> ID ASSIGN expression .)
+    NUM             reduce using rule 13 (expression -> ID ASSIGN expression .)
+    $end            reduce using rule 13 (expression -> ID ASSIGN expression .)
+    RBR             reduce using rule 13 (expression -> ID ASSIGN expression .)
+    PLUS            shift and go to state 11
+    MINUS           shift and go to state 12
+    MUL             shift and go to state 13
+    DIV             shift and go to state 14
+
+  ! PLUS            [ reduce using rule 13 (expression -> ID ASSIGN expression .) ]
+  ! MINUS           [ reduce using rule 13 (expression -> ID ASSIGN expression .) ]
+  ! MUL             [ reduce using rule 13 (expression -> ID ASSIGN expression .) ]
+  ! DIV             [ reduce using rule 13 (expression -> ID ASSIGN expression .) ]
+  ! SMCLN           [ shift and go to state 10 ]
+  ! ID              [ shift and go to state 5 ]
+  ! VAR             [ shift and go to state 6 ]
+  ! FUNC            [ shift and go to state 7 ]
+  ! NUM             [ shift and go to state 8 ]
+
+    expression                     shift and go to state 9
+    decl_function                  shift and go to state 2
+    number                         shift and go to state 3
+    expression_list                shift and go to state 4
+
+state 25
+
+    (7) decl_function -> FUNC ID LPAR . RPAR compound
+
+    RPAR            shift and go to state 26
+
+
+state 26
+
+    (7) decl_function -> FUNC ID LPAR RPAR . compound
+    (8) compound -> . LBR expression RBR
+
+    LBR             shift and go to state 28
+
+    compound                       shift and go to state 27
+
+state 27
+
+    (7) decl_function -> FUNC ID LPAR RPAR compound .
+
+    SMCLN           reduce using rule 7 (decl_function -> FUNC ID LPAR RPAR compound .)
+    PLUS            reduce using rule 7 (decl_function -> FUNC ID LPAR RPAR compound .)
+    MINUS           reduce using rule 7 (decl_function -> FUNC ID LPAR RPAR compound .)
+    MUL             reduce using rule 7 (decl_function -> FUNC ID LPAR RPAR compound .)
+    DIV             reduce using rule 7 (decl_function -> FUNC ID LPAR RPAR compound .)
+    ID              reduce using rule 7 (decl_function -> FUNC ID LPAR RPAR compound .)
+    VAR             reduce using rule 7 (decl_function -> FUNC ID LPAR RPAR compound .)
+    FUNC            reduce using rule 7 (decl_function -> FUNC ID LPAR RPAR compound .)
+    NUM             reduce using rule 7 (decl_function -> FUNC ID LPAR RPAR compound .)
+    $end            reduce using rule 7 (decl_function -> FUNC ID LPAR RPAR compound .)
+    RBR             reduce using rule 7 (decl_function -> FUNC ID LPAR RPAR compound .)
+
+
+state 28
+
+    (8) compound -> LBR . expression RBR
+    (1) expression -> . expression SMCLN
+    (2) expression -> . decl_function
+    (3) expression -> . number
+    (4) expression -> . expression_list
+    (5) expression -> . ID LPAR RPAR
+    (9) expression -> . expression PLUS expression
+    (10) expression -> . expression MINUS expression
+    (11) expression -> . expression MUL expression
+    (12) expression -> . expression DIV expression
+    (13) expression -> . ID ASSIGN expression
+    (14) expression -> . VAR ID
+    (7) decl_function -> . FUNC ID LPAR RPAR compound
+    (15) number -> . NUM
+    (6) expression_list -> . expression expression
+
+    ID              shift and go to state 5
+    VAR             shift and go to state 6
+    FUNC            shift and go to state 7
+    NUM             shift and go to state 8
+
+    expression                     shift and go to state 29
+    decl_function                  shift and go to state 2
+    number                         shift and go to state 3
+    expression_list                shift and go to state 4
+
+state 29
+
+    (8) compound -> LBR expression . RBR
+    (1) expression -> expression . SMCLN
+    (9) expression -> expression . PLUS expression
+    (10) expression -> expression . MINUS expression
+    (11) expression -> expression . MUL expression
+    (12) expression -> expression . DIV expression
+    (6) expression_list -> expression . expression
+    (1) expression -> . expression SMCLN
+    (2) expression -> . decl_function
+    (3) expression -> . number
+    (4) expression -> . expression_list
+    (5) expression -> . ID LPAR RPAR
+    (9) expression -> . expression PLUS expression
+    (10) expression -> . expression MINUS expression
+    (11) expression -> . expression MUL expression
+    (12) expression -> . expression DIV expression
+    (13) expression -> . ID ASSIGN expression
+    (14) expression -> . VAR ID
+    (7) decl_function -> . FUNC ID LPAR RPAR compound
+    (15) number -> . NUM
+    (6) expression_list -> . expression expression
+
+    RBR             shift and go to state 30
+    SMCLN           shift and go to state 10
+    PLUS            shift and go to state 11
+    MINUS           shift and go to state 12
+    MUL             shift and go to state 13
+    DIV             shift and go to state 14
+    ID              shift and go to state 5
+    VAR             shift and go to state 6
+    FUNC            shift and go to state 7
+    NUM             shift and go to state 8
+
+    expression                     shift and go to state 9
+    decl_function                  shift and go to state 2
+    number                         shift and go to state 3
+    expression_list                shift and go to state 4
+
+state 30
+
+    (8) compound -> LBR expression RBR .
+
+    SMCLN           reduce using rule 8 (compound -> LBR expression RBR .)
+    PLUS            reduce using rule 8 (compound -> LBR expression RBR .)
+    MINUS           reduce using rule 8 (compound -> LBR expression RBR .)
+    MUL             reduce using rule 8 (compound -> LBR expression RBR .)
+    DIV             reduce using rule 8 (compound -> LBR expression RBR .)
+    ID              reduce using rule 8 (compound -> LBR expression RBR .)
+    VAR             reduce using rule 8 (compound -> LBR expression RBR .)
+    FUNC            reduce using rule 8 (compound -> LBR expression RBR .)
+    NUM             reduce using rule 8 (compound -> LBR expression RBR .)
+    $end            reduce using rule 8 (compound -> LBR expression RBR .)
+    RBR             reduce using rule 8 (compound -> LBR expression RBR .)
+
+WARNING: 
+WARNING: Conflicts:
+WARNING: 
+WARNING: shift/reduce conflict for SMCLN in state 9 resolved as shift
+WARNING: shift/reduce conflict for PLUS in state 9 resolved as shift
+WARNING: shift/reduce conflict for MINUS in state 9 resolved as shift
+WARNING: shift/reduce conflict for MUL in state 9 resolved as shift
+WARNING: shift/reduce conflict for DIV in state 9 resolved as shift
+WARNING: shift/reduce conflict for ID in state 9 resolved as shift
+WARNING: shift/reduce conflict for VAR in state 9 resolved as shift
+WARNING: shift/reduce conflict for FUNC in state 9 resolved as shift
+WARNING: shift/reduce conflict for NUM in state 9 resolved as shift
