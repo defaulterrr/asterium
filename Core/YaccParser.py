@@ -91,17 +91,17 @@ def p_number(p):
 def p_error(p):
     print("Syntax error near {0}".format(p))
 
-parser = yacc.yacc(debug=1)
-result = parser.parse('''
-func name() {
-    var a;
-    a = 3+3;
-    func name2() {
-        var b;
-    }
-}
+Parser = yacc.yacc(debug=1)
+# result = parser.parse('''
+# func name() {
+#     var a;
+#     a = 3+3;
+#     func name2() {
+#         var b;
+#     }
+# }
 
-name();
+# name();
 
-''')
-print(result)
+# ''')
+# print(result)
