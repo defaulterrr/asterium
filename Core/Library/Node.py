@@ -11,6 +11,8 @@ class Node:
         self.right.eval(atable,ftable)
 
     def __str__(self):
+        # import traceback
+        # traceback.print_stack()
         import textwrap
         self.str = "Node *"
         self.leftstr = textwrap.indent("   \u21b3" + self.left.__str__(),"  ")

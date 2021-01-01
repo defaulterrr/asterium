@@ -89,19 +89,9 @@ def p_number(p):
     p[0] = Number(p[1])
 
 def p_error(p):
-    print("Syntax error near {0}".format(p))
+    if p:
+        raise SyntaxError("Syntax error: {0}".format(p))
+    else: 
+        raise SyntaxError("Unknown syntax at the end of input")
 
 Parser = yacc.yacc(debug=1)
-# result = parser.parse('''
-# func name() {
-#     var a;
-#     a = 3+3;
-#     func name2() {
-#         var b;
-#     }
-# }
-
-# name();
-
-# ''')
-# print(result)

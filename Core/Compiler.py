@@ -2,9 +2,35 @@ from Library.FunctionTable import FunctionTable
 from Parser import Parser
 from Library.AddressTable import AddressTable
 
-result = Parser.parse('''
+class Compiler:
+    def __init__(self):
+        self._parser = Parser
+        self._address_table = AddressTable()
+        self._function_table = FunctionTable()
+
+    def __parse(self):
+        self._ast = self._parser.parse(self._source)
+
+    def __eval(self):
+        self._ast.eval(self._address_table,self._function_table)
+
+    def feed(self,source):
+        self._source = source
+        self.__parse()
+        # self._eval()
+
+    def printast(self):
+        print(self._ast)
+
+compiler = Compiler()
+compiler.feed('''
+func test () {
+    var b;
+    b = 3 - 5;
+}
 var a;
-a = 3 + 5;
+a = 5+5;
+var c;
 ''')
 
-print(result)
+compiler.printast()
