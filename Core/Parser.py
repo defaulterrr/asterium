@@ -13,6 +13,14 @@ from Library.Function import Function
 from Library.FunctionCall import FunctionCall
 from Library.Node import Node
 from Library.ID import ID
+from Library.Condition import Condition
+from Library.Conditional import Conditional
+
+# arithmetics - DONE
+# function declaration - DONE
+# function calls - DONE
+
+# conditional statements - WIP 
 
 precedence = (
     ('left','ASSIGN'),
@@ -52,6 +60,11 @@ def p_compound_expression(p):
     '''
     p[0] = p[2]
 
+def p_empty_compound_expression(p):
+    ''' compound : LBR RBR
+    '''
+    pass
+
 def p_basic_arithmetics(p):
     '''expression : expression PLUS expression
                 | expression MINUS expression
@@ -87,6 +100,26 @@ def p_declaration(p):
 def p_number(p):
     'number : NUM'
     p[0] = Number(p[1])
+
+def p_condition(p):
+    ''' condition : number EQUAL number 
+                    | number GREATER number
+                    | number LESSER number
+                    | ID EQUAL ID 
+                    | ID GREATER ID
+                    | ID LESSER ID
+    '''
+    p[0] = Condition(p[2],p[1],p[3])
+
+def p_conditional(p):
+    ''' expression : IF LPAR condition RPAR compound
+    '''
+    p[0] = Conditional(p[3],p[5])
+
+def p_conditional_expanded(p):
+    ''' expression : IF LPAR condition RPAR compound ELSE compound
+    '''
+    p[0] = Conditional(p[3],p[5],p[7])
 
 def p_error(p):
     if p:

@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'leftASSIGNleftPLUSMINUSleftMULDIVASSIGN DIV EQUAL FUNC GREATER ID IF LBR LESSER LPAR MINUS MUL NUM PLUS RBR RPAR SMCLN VARexpression : expression SMCLN\n                | decl_function\n                | number\n     expression : expression_list\n     expression : ID LPAR RPAR\n    expression_list : expression expression \n    decl_function : FUNC ID LPAR RPAR compound\n    compound : LBR expression RBR\n    expression : expression PLUS expression\n                | expression MINUS expression\n                | expression MUL expression\n                | expression DIV expression\n     expression : ID ASSIGN expression\n     expression : VAR ID number : NUM'
+_lr_signature = 'leftASSIGNleftPLUSMINUSleftMULDIVASSIGN DIV ELSE EQUAL FUNC GREATER ID IF LBR LESSER LPAR MINUS MUL NUM PLUS RBR RPAR SMCLN VARexpression : expression SMCLN\n                | decl_function\n                | number\n     expression : expression_list\n     expression : ID LPAR RPAR\n    expression_list : expression expression \n    decl_function : FUNC ID LPAR RPAR compound\n    compound : LBR expression RBR\n     compound : LBR RBR\n    expression : expression PLUS expression\n                | expression MINUS expression\n                | expression MUL expression\n                | expression DIV expression\n     expression : ID ASSIGN expression\n     expression : VAR ID number : NUM condition : number EQUAL number \n                    | number GREATER number\n                    | number LESSER number\n                    | ID EQUAL ID \n                    | ID GREATER ID\n                    | ID LESSER ID\n     expression : IF LPAR condition RPAR compound\n     expression : IF LPAR condition RPAR compound ELSE compound\n    '
     
-_lr_action_items = {'ID':([0,1,2,3,4,6,7,8,9,10,11,12,13,14,16,17,19,20,21,22,23,24,27,28,29,30,],[5,5,-2,-3,-4,17,18,-15,5,-1,5,5,5,5,5,-14,-9,-10,-11,-12,-5,-13,-7,5,5,-8,]),'VAR':([0,1,2,3,4,8,9,10,11,12,13,14,16,17,19,20,21,22,23,24,27,28,29,30,],[6,6,-2,-3,-4,-15,6,-1,6,6,6,6,6,-14,-9,-10,-11,-12,-5,-13,-7,6,6,-8,]),'FUNC':([0,1,2,3,4,8,9,10,11,12,13,14,16,17,19,20,21,22,23,24,27,28,29,30,],[7,7,-2,-3,-4,-15,7,-1,7,7,7,7,7,-14,-9,-10,-11,-12,-5,-13,-7,7,7,-8,]),'NUM':([0,1,2,3,4,8,9,10,11,12,13,14,16,17,19,20,21,22,23,24,27,28,29,30,],[8,8,-2,-3,-4,-15,8,-1,8,8,8,8,8,-14,-9,-10,-11,-12,-5,-13,-7,8,8,-8,]),'$end':([1,2,3,4,8,9,10,17,19,20,21,22,23,24,27,30,],[0,-2,-3,-4,-15,-6,-1,-14,-9,-10,-11,-12,-5,-13,-7,-8,]),'SMCLN':([1,2,3,4,8,9,10,17,19,20,21,22,23,24,27,29,30,],[10,-2,-3,-4,-15,10,-1,-14,-9,-10,-11,-12,-5,-13,-7,10,-8,]),'PLUS':([1,2,3,4,8,9,10,17,19,20,21,22,23,24,27,29,30,],[11,-2,-3,-4,-15,11,-1,-14,-9,-10,-11,-12,-5,11,-7,11,-8,]),'MINUS':([1,2,3,4,8,9,10,17,19,20,21,22,23,24,27,29,30,],[12,-2,-3,-4,-15,12,-1,-14,-9,-10,-11,-12,-5,12,-7,12,-8,]),'MUL':([1,2,3,4,8,9,10,17,19,20,21,22,23,24,27,29,30,],[13,-2,-3,-4,-15,13,-1,-14,13,13,-11,-12,-5,13,-7,13,-8,]),'DIV':([1,2,3,4,8,9,10,17,19,20,21,22,23,24,27,29,30,],[14,-2,-3,-4,-15,14,-1,-14,14,14,-11,-12,-5,14,-7,14,-8,]),'RBR':([2,3,4,8,9,10,17,19,20,21,22,23,24,27,29,30,],[-2,-3,-4,-15,-6,-1,-14,-9,-10,-11,-12,-5,-13,-7,30,-8,]),'LPAR':([5,18,],[15,25,]),'ASSIGN':([5,],[16,]),'RPAR':([15,25,],[23,26,]),'LBR':([26,],[28,]),}
+_lr_action_items = {'ID':([0,1,2,3,4,6,8,9,10,11,12,13,14,15,17,18,19,21,22,23,24,25,26,35,36,37,39,40,47,49,50,51,52,],[5,5,-2,-3,-4,18,20,-16,5,-1,5,5,5,5,5,-15,29,-10,-11,-12,-13,-5,-14,44,45,46,-23,5,-7,5,-9,-24,-8,]),'VAR':([0,1,2,3,4,9,10,11,12,13,14,15,17,18,21,22,23,24,25,26,39,40,47,49,50,51,52,],[6,6,-2,-3,-4,-16,6,-1,6,6,6,6,6,-15,-10,-11,-12,-13,-5,-14,-23,6,-7,6,-9,-24,-8,]),'IF':([0,1,2,3,4,9,10,11,12,13,14,15,17,18,21,22,23,24,25,26,39,40,47,49,50,51,52,],[7,7,-2,-3,-4,-16,7,-1,7,7,7,7,7,-15,-10,-11,-12,-13,-5,-14,-23,7,-7,7,-9,-24,-8,]),'FUNC':([0,1,2,3,4,9,10,11,12,13,14,15,17,18,21,22,23,24,25,26,39,40,47,49,50,51,52,],[8,8,-2,-3,-4,-16,8,-1,8,8,8,8,8,-15,-10,-11,-12,-13,-5,-14,-23,8,-7,8,-9,-24,-8,]),'NUM':([0,1,2,3,4,9,10,11,12,13,14,15,17,18,19,21,22,23,24,25,26,32,33,34,39,40,47,49,50,51,52,],[9,9,-2,-3,-4,-16,9,-1,9,9,9,9,9,-15,9,-10,-11,-12,-13,-5,-14,9,9,9,-23,9,-7,9,-9,-24,-8,]),'$end':([1,2,3,4,9,10,11,18,21,22,23,24,25,26,39,47,50,51,52,],[0,-2,-3,-4,-16,-6,-1,-15,-10,-11,-12,-13,-5,-14,-23,-7,-9,-24,-8,]),'SMCLN':([1,2,3,4,9,10,11,18,21,22,23,24,25,26,39,47,49,50,51,52,],[11,-2,-3,-4,-16,11,-1,-15,-10,-11,-12,-13,-5,-14,-23,-7,11,-9,-24,-8,]),'PLUS':([1,2,3,4,9,10,11,18,21,22,23,24,25,26,39,47,49,50,51,52,],[12,-2,-3,-4,-16,12,-1,-15,-10,-11,-12,-13,-5,12,-23,-7,12,-9,-24,-8,]),'MINUS':([1,2,3,4,9,10,11,18,21,22,23,24,25,26,39,47,49,50,51,52,],[13,-2,-3,-4,-16,13,-1,-15,-10,-11,-12,-13,-5,13,-23,-7,13,-9,-24,-8,]),'MUL':([1,2,3,4,9,10,11,18,21,22,23,24,25,26,39,47,49,50,51,52,],[14,-2,-3,-4,-16,14,-1,-15,14,14,-12,-13,-5,14,-23,-7,14,-9,-24,-8,]),'DIV':([1,2,3,4,9,10,11,18,21,22,23,24,25,26,39,47,49,50,51,52,],[15,-2,-3,-4,-16,15,-1,-15,15,15,-12,-13,-5,15,-23,-7,15,-9,-24,-8,]),'RBR':([2,3,4,9,10,11,18,21,22,23,24,25,26,39,40,47,49,50,51,52,],[-2,-3,-4,-16,-6,-1,-15,-10,-11,-12,-13,-5,-14,-23,50,-7,52,-9,-24,-8,]),'LPAR':([5,7,20,],[16,19,30,]),'ASSIGN':([5,],[17,]),'EQUAL':([9,28,29,],[-16,32,35,]),'GREATER':([9,28,29,],[-16,33,36,]),'LESSER':([9,28,29,],[-16,34,37,]),'RPAR':([9,16,27,30,41,42,43,44,45,46,],[-16,25,31,38,-17,-18,-19,-20,-21,-22,]),'LBR':([31,38,48,],[40,40,40,]),'ELSE':([39,50,52,],[48,-9,-8,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -17,7 +17,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'expression':([0,1,9,11,12,13,14,16,19,20,21,22,24,28,29,],[1,9,9,19,20,21,22,24,9,9,9,9,9,29,9,]),'decl_function':([0,1,9,11,12,13,14,16,19,20,21,22,24,28,29,],[2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,]),'number':([0,1,9,11,12,13,14,16,19,20,21,22,24,28,29,],[3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,]),'expression_list':([0,1,9,11,12,13,14,16,19,20,21,22,24,28,29,],[4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,]),'compound':([26,],[27,]),}
+_lr_goto_items = {'expression':([0,1,10,12,13,14,15,17,21,22,23,24,26,40,49,],[1,10,10,21,22,23,24,26,10,10,10,10,10,49,10,]),'decl_function':([0,1,10,12,13,14,15,17,21,22,23,24,26,40,49,],[2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,]),'number':([0,1,10,12,13,14,15,17,19,21,22,23,24,26,32,33,34,40,49,],[3,3,3,3,3,3,3,3,28,3,3,3,3,3,41,42,43,3,3,]),'expression_list':([0,1,10,12,13,14,15,17,21,22,23,24,26,40,49,],[4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,]),'condition':([19,],[27,]),'compound':([31,38,48,],[39,47,51,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -27,19 +27,28 @@ for _k, _v in _lr_goto_items.items():
 del _lr_goto_items
 _lr_productions = [
   ("S' -> expression","S'",1,None,None,None),
-  ('expression -> expression SMCLN','expression',2,'p_expression','YaccParser.py',24),
-  ('expression -> decl_function','expression',1,'p_expression','YaccParser.py',25),
-  ('expression -> number','expression',1,'p_expression','YaccParser.py',26),
-  ('expression -> expression_list','expression',1,'p_expression_list_from_list','YaccParser.py',31),
-  ('expression -> ID LPAR RPAR','expression',3,'p_function_call','YaccParser.py',36),
-  ('expression_list -> expression expression','expression_list',2,'p_expression_list','YaccParser.py',41),
-  ('decl_function -> FUNC ID LPAR RPAR compound','decl_function',5,'p_function_declaration','YaccParser.py',46),
-  ('compound -> LBR expression RBR','compound',3,'p_compound_expression','YaccParser.py',51),
-  ('expression -> expression PLUS expression','expression',3,'p_basic_arithmetics','YaccParser.py',56),
-  ('expression -> expression MINUS expression','expression',3,'p_basic_arithmetics','YaccParser.py',57),
-  ('expression -> expression MUL expression','expression',3,'p_basic_arithmetics','YaccParser.py',58),
-  ('expression -> expression DIV expression','expression',3,'p_basic_arithmetics','YaccParser.py',59),
-  ('expression -> ID ASSIGN expression','expression',3,'p_assignment','YaccParser.py',76),
-  ('expression -> VAR ID','expression',2,'p_declaration','YaccParser.py',84),
-  ('number -> NUM','number',1,'p_number','YaccParser.py',88),
+  ('expression -> expression SMCLN','expression',2,'p_expression','Parser.py',32),
+  ('expression -> decl_function','expression',1,'p_expression','Parser.py',33),
+  ('expression -> number','expression',1,'p_expression','Parser.py',34),
+  ('expression -> expression_list','expression',1,'p_expression_list_from_list','Parser.py',39),
+  ('expression -> ID LPAR RPAR','expression',3,'p_function_call','Parser.py',44),
+  ('expression_list -> expression expression','expression_list',2,'p_expression_list','Parser.py',49),
+  ('decl_function -> FUNC ID LPAR RPAR compound','decl_function',5,'p_function_declaration','Parser.py',54),
+  ('compound -> LBR expression RBR','compound',3,'p_compound_expression','Parser.py',59),
+  ('compound -> LBR RBR','compound',2,'p_empty_compound_expression','Parser.py',64),
+  ('expression -> expression PLUS expression','expression',3,'p_basic_arithmetics','Parser.py',69),
+  ('expression -> expression MINUS expression','expression',3,'p_basic_arithmetics','Parser.py',70),
+  ('expression -> expression MUL expression','expression',3,'p_basic_arithmetics','Parser.py',71),
+  ('expression -> expression DIV expression','expression',3,'p_basic_arithmetics','Parser.py',72),
+  ('expression -> ID ASSIGN expression','expression',3,'p_assignment','Parser.py',89),
+  ('expression -> VAR ID','expression',2,'p_declaration','Parser.py',97),
+  ('number -> NUM','number',1,'p_number','Parser.py',101),
+  ('condition -> number EQUAL number','condition',3,'p_condition','Parser.py',105),
+  ('condition -> number GREATER number','condition',3,'p_condition','Parser.py',106),
+  ('condition -> number LESSER number','condition',3,'p_condition','Parser.py',107),
+  ('condition -> ID EQUAL ID','condition',3,'p_condition','Parser.py',108),
+  ('condition -> ID GREATER ID','condition',3,'p_condition','Parser.py',109),
+  ('condition -> ID LESSER ID','condition',3,'p_condition','Parser.py',110),
+  ('expression -> IF LPAR condition RPAR compound','expression',5,'p_conditional','Parser.py',115),
+  ('expression -> IF LPAR condition RPAR compound ELSE compound','expression',7,'p_conditional_expanded','Parser.py',120),
 ]

@@ -31,6 +31,38 @@ func test () {
 var a;
 a = 5+5;
 var c;
+test();
+if (3>5) {
+    a  = 3;
+    b = 3;
+}
 ''')
-
 compiler.printast()
+compiler.feed('''
+if (3 > 5) {
+    var a;
+    a = 3 + 9;
+}
+''')
+compiler.printast()
+
+compiler.feed('''
+if (3 < 5) {
+    var b;
+    b = 3 + 6;
+}
+''')
+compiler.printast()
+
+compiler.feed('''
+if (3 < 5) {
+    var a;
+    a = 3+5;
+} else {
+    a =  4;
+}
+''')
+compiler.printast()
+
+
+

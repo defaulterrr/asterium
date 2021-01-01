@@ -7,7 +7,8 @@ reserved = {
     '='     :'ASSIGN',
     '>'     :'GREATER',
     '<'     :'LESSER',
-    'if'    :'IF'
+    'if'    :'IF',
+    'else'  :'ELSE'
 }
 
 tokens = [
