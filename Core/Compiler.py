@@ -17,10 +17,14 @@ class Compiler:
     def feed(self,source):
         self._source = source
         self.__parse()
-        # self._eval()
+        self.__eval()
 
     def printast(self):
         print(self._ast)
+
+    def printdebug(self):
+        print(self._address_table)
+        print(self._function_table)
 
 compiler = Compiler()
 compiler.feed('''
@@ -38,31 +42,29 @@ if (3>5) {
 }
 ''')
 compiler.printast()
-compiler.feed('''
-if (3 > 5) {
-    var a;
-    a = 3 + 9;
-}
-''')
-compiler.printast()
+compiler.printdebug()
+# compiler.feed('''
+# if (3 > 5) {
+#     var a;
+#     a = 3 + 9;
+# }
+# ''')
+# compiler.printast()
 
-compiler.feed('''
-if (3 < 5) {
-    var b;
-    b = 3 + 6;
-}
-''')
-compiler.printast()
+# compiler.feed('''
+# if (3 < 5) {
+#     var b;
+#     b = 3 + 6;
+# }
+# ''')
+# compiler.printast()
 
-compiler.feed('''
-if (3 < 5) {
-    var a;
-    a = 3+5;
-} else {
-    a =  4;
-}
-''')
-compiler.printast()
-
-
-
+# compiler.feed('''
+# if (3 < 5) {
+#     var a;
+#     a = 3+5;
+# } else {
+#     a =  4;
+# }
+# ''')
+# compiler.printast()

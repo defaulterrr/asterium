@@ -2,13 +2,10 @@ class Node:
     def __init__(self,left,right):
         self.left = left
         self.right = right
-        # print(self)
 
-    def eval(self, atable, ftable):
-        # print("Node eval")
-        # print(self.left,self.right)
-        self.left.eval(atable,ftable)
-        self.right.eval(atable,ftable)
+    def eval(self, atable, ftable, namespace=""):
+        self.left.eval(atable,ftable,namespace)
+        self.right.eval(atable,ftable,namespace)
 
     def __str__(self):
         # import traceback

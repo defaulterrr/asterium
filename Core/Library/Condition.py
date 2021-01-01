@@ -11,4 +11,9 @@ class Condition:
         leftOp = textwrap.indent("   \u21b3" + self.leftOp.__str__(),"  ")
         rightOp = textwrap.indent("   \u21b3" + self.rightOp.__str__(),"  ")
         return self.str + "\n " + operation + "\n " + leftOp + "\n" + rightOp + "\n"
+
+    def eval(self, addresstable, functiontable, namespace=""):
+        # self.operation.eval(addresstable, functiontable, namespace)
+        self.leftOp.eval(addresstable, functiontable)
+        self.rightOp.eval(addresstable, functiontable)
         

@@ -3,7 +3,7 @@ class FunctionTable():
         self.addresses = []
         self.functions = {}
 
-    def addFunc(self,name, func):
+    def addFunc(self,name, func, namespace=""):
         if not name in self.addresses:
             self.addresses.append(name)
         else:
@@ -18,3 +18,8 @@ class FunctionTable():
 
         return "".join(funcs)
 
+    def __str__(self):
+        output = "Function table_______\n"
+        for address in self.addresses:
+            output = output + "Address: {}\n".format(address)
+        return output

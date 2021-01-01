@@ -19,15 +19,19 @@ class Number(BaseBox):
     def __str__(self):
         return "Number: {0}".format(self.value)
 
-    def eval(self, addresstable, ftable):
+    def eval(self, addresstable, ftable, namespace=""):
         #return self.value
         # self.address = addresstable.push(self.value)
         # print(self.address + " " + "word" + " " + str(self.value) + "\n")
-        if self.address != "":
-            return self.address
-        else:
-            self.address = addresstable.push(self.value)
-            return self.address
+        # if self.address != "":
+        #     return self.address
+        # else:
+        #     self.address = addresstable.push(self.value)
+        #     return self.address
+        assert self.address == ""
+        namespace = "const_" + namespace
+        addresstable.push(value=self.value,namespace=namespace)
+        pass
 
     def generate(self, addresstable, ftable):
         return "\n"

@@ -1,16 +1,15 @@
 from .BinaryOperation import BinaryOperation
+from .AddressTable import AddressTable
+from .FunctionTable import FunctionTable
 
 class Sub(BinaryOperation):
     def __init__(self, left, right):
         super().__init__(left, right)
         self.address = ''
 
-    def eval(self, addresstable, ftable):
-        if self.address != "":
-            return self.address
-        else:
-            self.address = addresstable.push(0)
-            return self.address
+    def eval(self, addresstable: AddressTable, ftable: FunctionTable, namespace=""):
+        assert self.address == ""
+        self.address = addresstable.push(namespace)
 
     def __str__(self):
         self.str = "Substract, address: {0}".format(self.address)

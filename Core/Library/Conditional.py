@@ -18,5 +18,14 @@ class Conditional:
             return self.str + "\n " + comparison + '\n' + leftstr + "\n " + rightstr + "\n "
         return self.str + "\n " + comparison + '\n' + leftstr + "\n "
         print(self.true_block.__str__())
+
+    def eval(self, addresstable, functiontable, namespace=""):
+        self.comparison.eval(addresstable, functiontable, namespace)
+        self.true_block.eval(addresstable, functiontable, namespace)
+        if self.is_else_present:
+            self.false_block.eval(addresstable, functiontable, namespace)
+        else:
+            pass
+        
             
         

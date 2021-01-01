@@ -8,9 +8,9 @@ class Function():
         self.node = node
     
     # evaluate addresses, check for previous definitions of a function and add a function to func namespace for calling
-    def eval(self, atable: AddressTable, ftable: FunctionTable):
+    def eval(self, atable: AddressTable, ftable: FunctionTable, namespace=""):
         ftable.addFunc(self.name, self.node)
-        self.node.eval(atable,ftable)
+        self.node.eval(atable,ftable, self.name+"_"+namespace)
         pass
 
     def __str__(self):
@@ -21,10 +21,12 @@ class Function():
     # generate function body to be later added to the end of the file for calling
     def generate(self, atable:AddressTable, ftable: FunctionTable):
 
-        commands = self.node.generate(atable,ftable)
-        print(commands)
-        func = self.name + ":\n"
-        if commands != None:
-            func + commands
-        return func
+        # commands = self.node.generate(atable,ftable)
+        # print(commands)
+        # func = self.name + ":\n"
+        # if commands != None:
+        #     func + commands
+        # return func
+        pass
+
         

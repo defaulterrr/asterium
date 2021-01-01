@@ -1,11 +1,16 @@
 from .AddressTable import AddressTable
+from .FunctionTable import FunctionTable
 
 class Declaration:
     def __init__(self,name):
         self.name = name
+        self.address = ""
 
-    def eval(self, table: AddressTable, *argv):
-        table.push(name=self.name)
+    def eval(self, table: AddressTable, functiontable: FunctionTable, namespace=""):
+        if table.isPresent(self.name, namespace):
+            raise ValueError("Variable is already declared")
+        else:
+            self.address = table.push(namespace=namespace)
 
     def __str__(self):
         self.str = "Declaration *"
