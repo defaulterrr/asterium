@@ -35,6 +35,15 @@ class AddressTable:
         self.addresses.append(address)
         return address
 
+    def push_named(self, value=0, namespace="", name=""):
+        final_name = namespace + "_" + name
+        if final_name in self.addresses:
+            raise ValueError("Variable was already declared: {}".format(final_name))
+        else:
+            self.table[final_name] = value
+            self.addresses.append(final_name)
+        return final_name
+
     def isPresent(self, address, namespace="") -> bool:
         if namespace+"_"+address in self.addresses:
             return True
